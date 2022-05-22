@@ -18,13 +18,17 @@ const html = registerHtml({
 type TabGroup = chrome.tabGroups.TabGroup;
 type Tab = chrome.tabs.Tab;
 
-const ungroupedTabGroup: TabGroup = {
+export interface PageGroup extends TabGroup {
+  tabs?: Tab[];
+}
+
+const newUngroupedTabGroup: () => TabGroup = () => ({
   collapsed: false,
   color: "grey",
   id: -1,
   title: undefined,
   windowId: -1,
-};
+});
 
 const app: TramOneComponent = () => {
   const groupStore = useGlobalStore("GROUP_STORE", [] as TabGroup[]);
@@ -40,7 +44,26 @@ const app: TramOneComponent = () => {
     groupStore.push(...tabGroups);
   });
 
-  const pageGroups = [...groupStore, ungroupedTabGroup];
+  const pageGroups = [] as PageGroup[];
+  tabStore.forEach((tab) => {
+    const lastGroup = pageGroups.at(-1);
+
+    if (lastGroup === undefined || lastGroup.id !== tab.groupId) {
+      // if we have a new group, make a new page for it
+
+      // get the group the tab is pointing to (or a new one, if this isn't part of a group)
+      const newTabGroup =
+        (groupStore.find((group) => group.id === tab.groupId) as PageGroup) ||
+        (newUngroupedTabGroup() as PageGroup);
+
+      newTabGroup.tabs = [tab];
+      pageGroups.push(newTabGroup);
+    } else {
+      // if the tab is in the last associated group, push this tab on it
+      lastGroup.tabs.push(tab);
+    }
+  }, []);
+
   const pages = pageGroups.map((group) => {
     return html`<page groupInfo=${group} />`;
   });
