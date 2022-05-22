@@ -1,4 +1,9 @@
-import { registerHtml, TramOneComponent, useEffect } from "tram-one";
+import {
+  registerHtml,
+  TramOneComponent,
+  useEffect,
+  useGlobalStore,
+} from "tram-one";
 import noteSelector from "../note-selector";
 import pageScroller from "../page-scroller";
 import page from "../page";
@@ -10,30 +15,39 @@ const html = registerHtml({
   page: page,
 });
 
-const app: TramOneComponent = () => {
-  useEffect(async () => {
-    const tabs = await chrome.tabs.query({});
-    console.log({ tabs });
+type TabGroup = chrome.tabGroups.TabGroup;
+type Tab = chrome.tabs.Tab;
 
-    tabs.forEach((tab) => {
-      console.log(tab.favIconUrl);
-    });
+const ungroupedTabGroup: TabGroup = {
+  collapsed: false,
+  color: "grey",
+  id: -1,
+  title: undefined,
+  windowId: -1,
+};
+
+const app: TramOneComponent = () => {
+  const groupStore = useGlobalStore("GROUP_STORE", [] as TabGroup[]);
+  const tabStore = useGlobalStore("TAB_STORE", [] as Tab[]);
+
+  useEffect(async () => {
+    // tab information
+    const tabs = await chrome.tabs.query({});
+    tabStore.push(...tabs);
+
+    // group information
+    const tabGroups = await chrome.tabGroups.query({});
+    groupStore.push(...tabGroups);
+  });
+
+  const pageGroups = [...groupStore, ungroupedTabGroup];
+  const pages = pageGroups.map((group) => {
+    return html`<page groupInfo=${group} />`;
   });
 
   return html`
     <main class="app">
-      <page-scroller>
-        <page />
-        <page />
-        <page />
-        <page />
-        <page />
-        <page />
-        <page />
-        <page />
-        <page />
-        <page />
-      </page-scroller>
+      <page-scroller> ${pages} </page-scroller>
     </main>
   `;
 };

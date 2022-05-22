@@ -1,18 +1,28 @@
-import { registerHtml, TramOneComponent } from "tram-one";
+import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
 import "./page.css";
 
 const html = registerHtml();
 
-const page: TramOneComponent = () => {
+type TabGroup = chrome.tabGroups.TabGroup;
+type Tab = chrome.tabs.Tab;
+
+type pageProps = {
+  groupInfo: TabGroup;
+};
+
+// @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
+const page: TramOneComponent = ({ groupInfo }: pageProps) => {
+  const tabStore = useGlobalStore("TAB_STORE") as Tab[];
+
+  const tabsForGroup = tabStore.filter((tab) => tab.groupId === groupInfo.id);
+  const urls = tabsForGroup.map((tab) => html`<li>${tab.url}</li>`);
+
   return html`
-    <section class="page">
-      <h1>Tab Group Name</h1>
+    <section class="page" style="background: ${groupInfo.color}">
+      <h1>${groupInfo.title || "Ungrouped"}</h1>
       <h2>Tabs:</h2>
       <ul>
-        <li>https://google.com</li>
-        <li>https://google.com</li>
-        <li>https://google.com</li>
-        <li>https://google.com</li>
+        ${urls}
       </ul>
       <h2>Notes</h2>
       <textarea></textarea>

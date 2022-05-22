@@ -5,11 +5,11 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel watch",
-    "prebuild": "rm -rf dist",
+    "prebuild": "# rm -rf dist",
     "build": "parcel build",
     "build:manifest": "cp manifest.json dist/manifest.json",
     "build:zip": "zip -r new-tab-group-notes.zip dist",
-    "postbuild": "npm run build:manifest && npm run build:zip",
+    "postbuild": "# npm run build:manifest && npm run build:zip",
     "test": "jest --watch"
   },
   "dependencies": {
