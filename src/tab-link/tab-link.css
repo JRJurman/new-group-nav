@@ -1,0 +1,13 @@
+.tab-link {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tab-link img {
+  display: inline;
+  width: 1em;
+  margin-right: 0.5em;
+  padding-bottom: 4px;
+  vertical-align: middle;
+}
