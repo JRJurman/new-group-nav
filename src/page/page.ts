@@ -19,7 +19,12 @@ const page: TramOneComponent = ({ groupInfo }: pageProps) => {
 
   const tabsForGroup = tabStore.filter((tab) => tab.groupId === groupInfo.id);
   const tabLinks = tabsForGroup.map(
-    (tab) => html`<tab-link favicon=${tab.favIconUrl} title=${tab.title} />`
+    (tab) =>
+      html`<tab-link
+        index=${tab.index}
+        favicon=${tab.favIconUrl}
+        title=${tab.title}
+      />`
   );
 
   return html`
