@@ -12,3 +12,7 @@
   padding-bottom: 4px;
   vertical-align: middle;
 }
+
+.tab-link a {
+  color: var(--text-1);
+}

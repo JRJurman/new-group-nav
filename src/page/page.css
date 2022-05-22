@@ -12,3 +12,79 @@
   font-size: 1.2em;
   height: 100%;
 }
+
+/* map tab group colors to open-props colors */
+@media (prefers-color-scheme: light) {
+  .page[page-color="blue"] {
+    background: var(--blue-3);
+  }
+
+  .page[page-color="cyan"] {
+    background: var(--cyan-3);
+  }
+
+  .page[page-color="green"] {
+    background: var(--green-3);
+  }
+
+  .page[page-color="grey"] {
+    background: var(--gray-3);
+  }
+
+  .page[page-color="orange"] {
+    background: var(--orange-3);
+  }
+
+  .page[page-color="pink"] {
+    background: var(--pink-3);
+  }
+
+  .page[page-color="purple"] {
+    background: var(--violet-3);
+  }
+
+  .page[page-color="red"] {
+    background: var(--red-3);
+  }
+
+  .page[page-color="yellow"] {
+    background: var(--yellow-3);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .page[page-color="blue"] {
+    background: var(--blue-7);
+  }
+
+  .page[page-color="cyan"] {
+    background: var(--cyan-7);
+  }
+
+  .page[page-color="green"] {
+    background: var(--green-7);
+  }
+
+  .page[page-color="grey"] {
+    background: var(--gray-7);
+  }
+
+  .page[page-color="orange"] {
+    background: var(--orange-7);
+  }
+
+  .page[page-color="pink"] {
+    background: var(--pink-7);
+  }
+
+  .page[page-color="purple"] {
+    background: var(--violet-7);
+  }
+
+  .page[page-color="red"] {
+    background: var(--red-7);
+  }
+
+  .page[page-color="yellow"] {
+    background: var(--yellow-7);
+  }
+}

@@ -23,7 +23,7 @@ const page: TramOneComponent = ({ groupInfo }: pageProps) => {
   );
 
   return html`
-    <section class="page" style="background: ${groupInfo.color}">
+    <section class="page" page-color=${groupInfo.color}>
       <h1>${groupInfo.title || "Ungrouped"}</h1>
       <ul>
         ${tabLinks}
