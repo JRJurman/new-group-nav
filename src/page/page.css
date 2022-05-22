@@ -6,6 +6,11 @@
 
   display: flex;
   flex-direction: column;
+  gap: 10px;
+}
+
+.page ul {
+  padding: 0;
 }
 
 .page textarea {

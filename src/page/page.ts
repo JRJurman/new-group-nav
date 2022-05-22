@@ -28,7 +28,7 @@ const page: TramOneComponent = ({ groupInfo }: pageProps) => {
       <ul>
         ${tabLinks}
       </ul>
-      <textarea></textarea>
+      <textarea placeholder="Types Notes Here"></textarea>
     </section>
   `;
 };
