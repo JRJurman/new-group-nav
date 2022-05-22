@@ -1,4 +1,4 @@
-import { registerHtml, TramOneComponent } from "tram-one";
+import { registerHtml, TramOneComponent, useEffect } from "tram-one";
 import noteSelector from "../note-selector";
 import pageScroller from "../page-scroller";
 import page from "../page";
@@ -11,6 +11,15 @@ const html = registerHtml({
 });
 
 const app: TramOneComponent = () => {
+  useEffect(async () => {
+    const tabs = await chrome.tabs.query({});
+    console.log({ tabs });
+
+    tabs.forEach((tab) => {
+      console.log(tab.favIconUrl);
+    });
+  });
+
   return html`
     <main class="app">
       <page-scroller>

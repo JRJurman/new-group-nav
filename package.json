@@ -1,23 +1,25 @@
 {
-  "name": "slide-notes",
+  "name": "new-tab-group-notes",
   "version": "1.0.0",
   "private": true,
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel --open",
+    "start": "parcel watch",
+    "prebuild": "rm -rf dist",
     "build": "parcel build",
-    "test": "jest --watch",
-    "predeploy": "npm run build -- --public-url /slide-notes",
-    "deploy": "gh-pages -d dist -b gh-pages"
+    "build:manifest": "cp manifest.json dist/manifest.json",
+    "build:zip": "zip -r new-tab-group-notes.zip dist",
+    "postbuild": "npm run build:manifest && npm run build:zip",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@parcel/babel-preset-env": "^2.5.0",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@tram-one/tram-logo": "^4.1.0",
+    "@types/chrome": "^0.0.188",
     "@types/jest": "^27.5.1",
     "babel-jest": "^28.1.0",
-    "gh-pages": "^4.0.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jest-transform-stub": "^2.0.0",

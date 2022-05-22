@@ -1,5 +1,6 @@
 # Distributable
 dist
+*.zip
 
 # Parcel Dev Artifacts
 .parcel-cache

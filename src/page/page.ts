@@ -6,14 +6,16 @@ const html = registerHtml();
 const page: TramOneComponent = () => {
   return html`
     <section class="page">
-      Tabs:
+      <h1>Tab Group Name</h1>
+      <h2>Tabs:</h2>
+      <ul>
+        <li>https://google.com</li>
+        <li>https://google.com</li>
+        <li>https://google.com</li>
+        <li>https://google.com</li>
+      </ul>
+      <h2>Notes</h2>
       <textarea></textarea>
-      <p width="500px">
-        Page Filled with content, lots of content, potentially images? Eh,
-        images are hard, really we just want links, I mean, images would be
-        awesome, but being able to save a set of tabs would also be good - at
-        least, a good starting place...
-      </p>
     </section>
   `;
 };
