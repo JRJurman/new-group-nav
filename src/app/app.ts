@@ -21,6 +21,7 @@ type Tab = chrome.tabs.Tab;
 
 export interface PageGroup extends TabGroup {
   tabs?: Tab[];
+  notes?: string;
 }
 
 const newUngroupedTabGroup: () => TabGroup = () => ({
@@ -34,6 +35,7 @@ const newUngroupedTabGroup: () => TabGroup = () => ({
 const app: TramOneComponent = () => {
   const pageGroups = useGlobalStore("PAGE_GROUPS", [] as PageGroup[]);
 
+  // fetch tab and group information
   useEffect(async () => {
     // tab information
     const tabs = await chrome.tabs.query({});
@@ -41,6 +43,11 @@ const app: TramOneComponent = () => {
     // group information
     const tabGroups = await chrome.tabGroups.query({});
 
+    // storage information (includes the notes)
+    const notes = await chrome.storage.local.get();
+
+    // populate the pageGroups by iterating through the tabs
+    // this way they are in the order that they appear in the window
     tabs.forEach((tab) => {
       const lastGroup = pageGroups.at(-1);
 
@@ -53,12 +60,48 @@ const app: TramOneComponent = () => {
           (newUngroupedTabGroup() as PageGroup);
 
         newTabGroup.tabs = [tab];
+        newTabGroup.notes = notes[newTabGroup.id];
         pageGroups.push(newTabGroup);
       } else {
         // if the tab is in the last associated group, push this tab on it
         lastGroup.tabs.push(tab);
       }
     }, []);
+  });
+
+  // load page notes live
+  useEffect(async () => {
+    console.log(`adding change listener`);
+
+    const thisTab = await (
+      await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+    ).at(0);
+
+    // function to handle new changes we get to the chrome extension local storage
+    const updatePageOnChanged = (changes) => {
+      // iterate through the changes (chances are we'll only ever get one)
+      Object.entries(changes).forEach(
+        async ([groupId, change]: [string, any]) => {
+          const targetGroup = pageGroups.find(
+            (page) => page.id === parseInt(groupId)
+          );
+
+          // get the current active tab
+          const activeTab = await (
+            await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+          ).at(0);
+
+          // if the active tab and current tab are different, we can update safely
+          if (thisTab.id !== activeTab.id) {
+            console.log(`live updating ${targetGroup.id}`);
+            targetGroup.notes = change.newValue;
+          }
+        }
+      );
+    };
+
+    // attach a listener for new changes
+    chrome.storage.onChanged.addListener(updatePageOnChanged);
   });
 
   const pages = pageGroups.map((group) => {

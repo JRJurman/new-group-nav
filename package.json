@@ -12,8 +12,16 @@
     "postbuild": "# npm run build:manifest && npm run build:zip",
     "test": "jest --watch"
   },
+  "repository": "https://github.com/JRJurman/new-tab-group-notes",
+  "license": "MIT",
+  "author": {
+    "name": "Jesse Jurman",
+    "email": "j.r.jurman@gmail.com",
+    "url": "https://jrjurman.com"
+  },
   "dependencies": {
     "@parcel/babel-preset-env": "^2.5.0",
+    "@parcel/transformer-inline-string": "^2.5.0",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@tram-one/tram-logo": "^4.1.0",
@@ -28,8 +36,5 @@
     "prettier": "^2.6.2",
     "tram-one": "^12.0.2",
     "ts-jest": "^28.0.2"
-  },
-  "devDependencies": {
-    "@parcel/transformer-inline-string": "^2.5.0"
   }
 }

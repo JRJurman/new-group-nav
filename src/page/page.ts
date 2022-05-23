@@ -27,16 +27,25 @@ const page: TramOneComponent = ({ groupInfo }: pageProps) => {
     groupInfo.collapsed = true;
   };
 
+  const setNotes = (event) => {
+    const updatedNotes = event.target.value;
+    chrome.storage.local.set({ [groupInfo.id]: updatedNotes });
+  };
+
+  const isUngrouped = groupInfo.title === undefined;
+
   return html`
     <section class="page" page-color=${groupInfo.color}>
       <h1>
-        <span>${groupInfo.title || "Ungrouped"}</span>
+        <span>${isUngrouped ? "Ungrouped" : groupInfo.title}</span>
         <span onclick=${collapseTab}>${collapseIcon()}</span>
       </h1>
       <ul>
         ${tabLinks}
       </ul>
-      <textarea placeholder="Types Notes Here"></textarea>
+      <textarea placeholder="Jot notes here..." oninput=${setNotes}>
+ ${groupInfo.notes} </textarea
+      >
     </section>
   `;
 };
