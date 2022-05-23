@@ -13,7 +13,8 @@
   overflow-x: auto;
 }
 
-.page-scroller .page {
+.page-scroller .page,
+.page-scroller .collapsed-page {
   flex: none;
   position: sticky;
   left: 0;

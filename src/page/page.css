@@ -9,6 +9,13 @@
   gap: 10px;
 }
 
+.page h1 {
+  max-inline-size: none; /* unset open-props limit on h1 size */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .page ul {
   padding: 0;
 }
@@ -18,78 +25,103 @@
   height: 100%;
 }
 
+.collapsed-page {
+  width: 4em;
+}
+
+.collapsed-page svg {
+  margin: auto;
+  padding-top: 21px;
+}
+
+.collapsed-page h1 {
+  max-inline-size: none; /* unset open-props limit on h1 size */
+  text-align: center;
+  transform-origin: 100% 100%;
+  white-space: nowrap;
+  width: 80vh;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transform: rotate(-90deg) translateY(calc(1.35em - 80vh));
+}
+
+.collapsed-page h1.ungrouped {
+  font-size: var(--font-size-3);
+  transform: rotate(-90deg) translateY(calc(1.75em - 80vh));
+}
+
 /* map tab group colors to open-props colors */
 @media (prefers-color-scheme: light) {
-  .page[page-color="blue"] {
+  [page-color="blue"] {
     background: var(--blue-3);
   }
 
-  .page[page-color="cyan"] {
+  [page-color="cyan"] {
     background: var(--cyan-3);
   }
 
-  .page[page-color="green"] {
+  [page-color="green"] {
     background: var(--green-3);
   }
 
-  .page[page-color="grey"] {
+  [page-color="grey"] {
     background: var(--gray-3);
   }
 
-  .page[page-color="orange"] {
+  [page-color="orange"] {
     background: var(--orange-3);
   }
 
-  .page[page-color="pink"] {
+  [page-color="pink"] {
     background: var(--pink-3);
   }
 
-  .page[page-color="purple"] {
+  [page-color="purple"] {
     background: var(--violet-3);
   }
 
-  .page[page-color="red"] {
+  [page-color="red"] {
     background: var(--red-3);
   }
 
-  .page[page-color="yellow"] {
+  [page-color="yellow"] {
     background: var(--yellow-3);
   }
 }
 @media (prefers-color-scheme: dark) {
-  .page[page-color="blue"] {
+  [page-color="blue"] {
     background: var(--blue-7);
   }
 
-  .page[page-color="cyan"] {
+  [page-color="cyan"] {
     background: var(--cyan-7);
   }
 
-  .page[page-color="green"] {
+  [page-color="green"] {
     background: var(--green-7);
   }
 
-  .page[page-color="grey"] {
+  [page-color="grey"] {
     background: var(--gray-7);
   }
 
-  .page[page-color="orange"] {
+  [page-color="orange"] {
     background: var(--orange-7);
   }
 
-  .page[page-color="pink"] {
+  [page-color="pink"] {
     background: var(--pink-7);
   }
 
-  .page[page-color="purple"] {
+  [page-color="purple"] {
     background: var(--violet-7);
   }
 
-  .page[page-color="red"] {
+  [page-color="red"] {
     background: var(--red-7);
   }
 
-  .page[page-color="yellow"] {
+  [page-color="yellow"] {
     background: var(--yellow-7);
   }
 }

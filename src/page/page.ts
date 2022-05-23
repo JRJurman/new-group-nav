@@ -1,6 +1,7 @@
-import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
+import { registerHtml, TramOneComponent } from "tram-one";
+import { collapseIcon } from "../icons";
 import tabLink from "../tab-link";
-import { PageGroup } from "../app/app";
+import { PageGroup } from "../app";
 import "./page.css";
 
 const html = registerHtml({
@@ -22,9 +23,16 @@ const page: TramOneComponent = ({ groupInfo }: pageProps) => {
       />`
   );
 
+  const collapseTab = () => {
+    groupInfo.collapsed = true;
+  };
+
   return html`
     <section class="page" page-color=${groupInfo.color}>
-      <h1>${groupInfo.title || "Ungrouped"}</h1>
+      <h1>
+        <span>${groupInfo.title || "Ungrouped"}</span>
+        <span onclick=${collapseTab}>${collapseIcon()}</span>
+      </h1>
       <ul>
         ${tabLinks}
       </ul>

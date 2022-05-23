@@ -1,5 +1,8 @@
 # new-tab-group-notes
 
+This is a chrome-extension that replaces your new tab with a tab-group organizer!
+You can quickly navigate to those tabs, and leave notes for yourself about the tabs on this page!
+
 ## Development instructions
 
 1. In the root directory, run `npm ci` to install all the project dependencies
