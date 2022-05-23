@@ -104,11 +104,11 @@ const app: TramOneComponent = () => {
     chrome.storage.onChanged.addListener(updatePageOnChanged);
   });
 
-  const pages = pageGroups.map((group) => {
+  const pages = pageGroups.map((group, index) => {
     if (group.collapsed) {
-      return html`<collapsed-page groupInfo=${group} />`;
+      return html`<collapsed-page index=${index} />`;
     }
-    return html`<page groupInfo=${group} />`;
+    return html`<page index=${index} />`;
   });
 
   return html`

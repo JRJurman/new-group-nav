@@ -1,20 +1,21 @@
-import { registerHtml, TramOneComponent } from "tram-one";
+import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
 import { collapseIcon } from "../icons";
 import tabLink from "../tab-link";
 import { PageGroup } from "../app";
+import pageNotes from "./page-notes";
 import "./page.css";
 
 const html = registerHtml({
   "tab-link": tabLink,
+  "page-notes": pageNotes,
 });
 
-type pageProps = {
-  groupInfo: PageGroup;
-};
-
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const page: TramOneComponent = ({ groupInfo }: pageProps) => {
-  const tabLinks = groupInfo.tabs.map(
+const page: TramOneComponent = ({ index }: { index: number }) => {
+  const pageGroups = useGlobalStore("PAGE_GROUPS") as PageGroup[];
+  const targetPageGroup = pageGroups[index];
+
+  const tabLinks = targetPageGroup.tabs.map(
     (tab) =>
       html`<tab-link
         index=${tab.index}
@@ -24,28 +25,21 @@ const page: TramOneComponent = ({ groupInfo }: pageProps) => {
   );
 
   const collapseTab = () => {
-    groupInfo.collapsed = true;
+    targetPageGroup.collapsed = true;
   };
 
-  const setNotes = (event) => {
-    const updatedNotes = event.target.value;
-    chrome.storage.local.set({ [groupInfo.id]: updatedNotes });
-  };
-
-  const isUngrouped = groupInfo.title === undefined;
+  const isUngrouped = targetPageGroup.title === undefined;
 
   return html`
-    <section class="page" page-color=${groupInfo.color}>
+    <section class="page" page-color=${targetPageGroup.color}>
       <h1>
-        <span>${isUngrouped ? "Ungrouped" : groupInfo.title}</span>
+        <span>${isUngrouped ? "Ungrouped" : targetPageGroup.title}</span>
         <span onclick=${collapseTab}>${collapseIcon()}</span>
       </h1>
       <ul>
         ${tabLinks}
       </ul>
-      <textarea placeholder="Jot notes here..." oninput=${setNotes}>
- ${groupInfo.notes} </textarea
-      >
+      <page-notes index=${index} />
     </section>
   `;
 };
