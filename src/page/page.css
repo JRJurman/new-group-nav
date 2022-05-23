@@ -1,7 +1,7 @@
 .page {
   width: 535px;
   padding: 1em;
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--shadow-5);
   background: var(--surface-1);
 
   display: flex;
@@ -21,7 +21,7 @@
 }
 
 .page textarea {
-  font-size: 1.2em;
+  font-size: 1.4em;
   height: 100%;
 }
 
@@ -53,15 +53,15 @@
 /* map tab group colors to open-props colors */
 @media (prefers-color-scheme: light) {
   [page-color="blue"] {
-    background: var(--blue-3);
+    background: var(--blue-2);
   }
 
   [page-color="cyan"] {
-    background: var(--cyan-3);
+    background: var(--cyan-2);
   }
 
   [page-color="green"] {
-    background: var(--green-3);
+    background: var(--green-2);
   }
 
   [page-color="grey"] {
@@ -69,59 +69,59 @@
   }
 
   [page-color="orange"] {
-    background: var(--orange-3);
+    background: var(--orange-2);
   }
 
   [page-color="pink"] {
-    background: var(--pink-3);
+    background: var(--pink-2);
   }
 
   [page-color="purple"] {
-    background: var(--violet-3);
+    background: var(--violet-2);
   }
 
   [page-color="red"] {
-    background: var(--red-3);
+    background: var(--red-2);
   }
 
   [page-color="yellow"] {
-    background: var(--yellow-3);
+    background: var(--yellow-2);
   }
 }
 @media (prefers-color-scheme: dark) {
   [page-color="blue"] {
-    background: var(--blue-7);
+    background: #29303c;
   }
 
   [page-color="cyan"] {
-    background: var(--cyan-7);
+    background: #293a3c;
   }
 
   [page-color="green"] {
-    background: var(--green-7);
+    background: #293c2c;
   }
 
   [page-color="grey"] {
-    background: var(--gray-7);
+    background: #414141;
   }
 
   [page-color="orange"] {
-    background: var(--orange-7);
+    background: #3c3029;
   }
 
   [page-color="pink"] {
-    background: var(--pink-7);
+    background: #3c293b;
   }
 
   [page-color="purple"] {
-    background: var(--violet-7);
+    background: #2e293c;
   }
 
   [page-color="red"] {
-    background: var(--red-7);
+    background: #3c2929;
   }
 
   [page-color="yellow"] {
-    background: var(--yellow-7);
+    background: #3b3c29;
   }
 }

@@ -9,9 +9,6 @@
 h1 {
   font-size: var(--font-size-5);
 }
-h2 {
-  font-size: var(--font-size-4);
-}
 
 /* set the margin and height so that page takes full width */
 body,

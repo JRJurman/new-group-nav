@@ -1,28 +1,27 @@
-import { registerHtml, TramOneComponent } from "tram-one";
-import { PageGroup } from "../app";
+import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
+import { GroupPage } from "../app";
 import { expandIcon } from "../icons";
 import "./page.css";
 
 const html = registerHtml();
 
-type pageProps = {
-  groupInfo: PageGroup;
-};
-
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const collapsedPage: TramOneComponent = ({ groupInfo }: pageProps) => {
+const collapsedPage: TramOneComponent = ({ index }: { index: number }) => {
+  const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
+  const targetGroupPage = groupPages[index];
+
   const expandTab = () => {
-    groupInfo.collapsed = false;
+    targetGroupPage.collapsed = false;
   };
 
-  const isUngrouped = !groupInfo.title;
+  const isUngrouped = !targetGroupPage.title;
   const ungroupedClass = isUngrouped ? "ungrouped" : "";
-  const tabTitles = groupInfo.tabs.map((tab) => tab.title).join(", ");
+  const tabTitles = targetGroupPage.tabs.map((tab) => tab.title).join(", ");
   return html`
-    <section class="collapsed-page " page-color=${groupInfo.color}>
+    <section class="collapsed-page " page-color=${targetGroupPage.color}>
       <span onclick=${expandTab}>${expandIcon()}</span>
 
-      <h1 class="${ungroupedClass}">${groupInfo.title || tabTitles}</h1>
+      <h1 class="${ungroupedClass}">${targetGroupPage.title || tabTitles}</h1>
     </section>
   `;
 };

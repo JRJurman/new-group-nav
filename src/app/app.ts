@@ -19,21 +19,13 @@ const html = registerHtml({
 type TabGroup = chrome.tabGroups.TabGroup;
 type Tab = chrome.tabs.Tab;
 
-export interface PageGroup extends TabGroup {
+export interface GroupPage extends TabGroup {
   tabs?: Tab[];
   notes?: string;
 }
 
-const newUngroupedTabGroup: () => TabGroup = () => ({
-  collapsed: false,
-  color: "grey",
-  id: -1,
-  title: undefined,
-  windowId: -1,
-});
-
 const app: TramOneComponent = () => {
-  const pageGroups = useGlobalStore("PAGE_GROUPS", [] as PageGroup[]);
+  const groupPages = useGlobalStore("GROUP_PAGES", [] as GroupPage[]);
 
   // fetch tab and group information
   useEffect(async () => {
@@ -46,27 +38,51 @@ const app: TramOneComponent = () => {
     // storage information (includes the notes)
     const notes = await chrome.storage.local.get();
 
-    // populate the pageGroups by iterating through the tabs
+    // the ungrouped tabs, shows up first, and aggregates all ungrouped tabs regardless of position
+    const ungroupedTabPage: GroupPage = {
+      collapsed: false,
+      color: "grey",
+      id: -1,
+      title: undefined,
+      windowId: -1,
+      tabs: [],
+    };
+
+    // populate the groupPages by iterating through the tabs
     // this way they are in the order that they appear in the window
     tabs.forEach((tab) => {
-      const lastGroup = pageGroups.at(-1);
+      const lastGroup = groupPages.at(-1);
 
+      // if this is a tab that doesn't belong to a group, add it to the ungroupedTabPage
+      if (tab.groupId === -1) {
+        ungroupedTabPage.tabs.push(tab);
+        return;
+      }
+
+      if (lastGroup?.id === tab.groupId) {
+        // if the tab is in the last associated group, push this tab on it
+        lastGroup.tabs.push(tab);
+        return;
+      }
+
+      // if we have a new group (or there was no previous one), make a new group page for it
       if (lastGroup === undefined || lastGroup.id !== tab.groupId) {
-        // if we have a new group, make a new page for it
-
         // get the group the tab is pointing to (or a new one, if this isn't part of a group)
-        const newTabGroup =
-          (tabGroups.find((group) => group.id === tab.groupId) as PageGroup) ||
-          (newUngroupedTabGroup() as PageGroup);
+        const newTabGroup = tabGroups.find(
+          (group) => group.id === tab.groupId
+        ) as GroupPage;
 
         newTabGroup.tabs = [tab];
         newTabGroup.notes = notes[newTabGroup.id];
-        pageGroups.push(newTabGroup);
-      } else {
-        // if the tab is in the last associated group, push this tab on it
-        lastGroup.tabs.push(tab);
+        groupPages.push(newTabGroup);
+        return;
       }
     }, []);
+
+    // if we have any ungrouped tabs, push the ungrouped tab group to the groupPages
+    if (ungroupedTabPage.tabs?.length > 0) {
+      groupPages.push(ungroupedTabPage);
+    }
   });
 
   // load page notes live
@@ -82,7 +98,7 @@ const app: TramOneComponent = () => {
       // iterate through the changes (chances are we'll only ever get one)
       Object.entries(changes).forEach(
         async ([groupId, change]: [string, any]) => {
-          const targetGroup = pageGroups.find(
+          const targetGroup = groupPages.find(
             (page) => page.id === parseInt(groupId)
           );
 
@@ -104,7 +120,7 @@ const app: TramOneComponent = () => {
     chrome.storage.onChanged.addListener(updatePageOnChanged);
   });
 
-  const pages = pageGroups.map((group, index) => {
+  const pages = groupPages.map((group, index) => {
     if (group.collapsed) {
       return html`<collapsed-page index=${index} />`;
     }

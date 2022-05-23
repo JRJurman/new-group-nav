@@ -1,7 +1,7 @@
 import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
 import { collapseIcon } from "../icons";
 import tabLink from "../tab-link";
-import { PageGroup } from "../app";
+import { GroupPage } from "../app";
 import pageNotes from "./page-notes";
 import "./page.css";
 
@@ -12,10 +12,10 @@ const html = registerHtml({
 
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
 const page: TramOneComponent = ({ index }: { index: number }) => {
-  const pageGroups = useGlobalStore("PAGE_GROUPS") as PageGroup[];
-  const targetPageGroup = pageGroups[index];
+  const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
+  const targetGroupPage = groupPages[index];
 
-  const tabLinks = targetPageGroup.tabs.map(
+  const tabLinks = targetGroupPage.tabs.map(
     (tab) =>
       html`<tab-link
         index=${tab.index}
@@ -25,15 +25,15 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
   );
 
   const collapseTab = () => {
-    targetPageGroup.collapsed = true;
+    targetGroupPage.collapsed = true;
   };
 
-  const isUngrouped = targetPageGroup.title === undefined;
+  const isUngrouped = targetGroupPage.title === undefined;
 
   return html`
-    <section class="page" page-color=${targetPageGroup.color}>
+    <section class="page" page-color=${targetGroupPage.color}>
       <h1>
-        <span>${isUngrouped ? "Ungrouped" : targetPageGroup.title}</span>
+        <span>${isUngrouped ? "Ungrouped" : targetGroupPage.title}</span>
         <span onclick=${collapseTab}>${collapseIcon()}</span>
       </h1>
       <ul>
