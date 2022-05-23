@@ -5,7 +5,7 @@ You can quickly navigate to those tabs, and leave notes for yourself about the t
 
 ### Local Installation
 
-1. [Download `new-tab-group-notes` from the releases tab](https://github.com/JRJurman/new-tab-group-notes/releases) of the project onto your local machine. Extract the folder onto your local machine.
+1. [Download `new-tab-group-notes.zip` from the releases tab](https://github.com/JRJurman/new-tab-group-notes/releases) of the project onto your local machine. Extract the folder onto your local machine.
 
 2. Open the extensions management page for your browser, most likely [chrome://extensions/](chrome://extensions/).
 
