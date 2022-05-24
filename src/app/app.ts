@@ -41,7 +41,7 @@ const app: TramOneComponent = () => {
 
         // storage information (includes the notes)
         const { tabGroupInfo: originalTabGroupInfo, ...notes } =
-          await chrome.storage.local.get();
+          (await chrome.storage.local.get()) || {};
 
         // build an association of the ids to tab group information
         type TabGroupInfo = {
