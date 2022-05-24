@@ -19,6 +19,7 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
     (tab) =>
       html`<tab-link
         index=${tab.index}
+        windowId=${tab.windowId}
         favicon=${tab.favIconUrl}
         title=${tab.title}
       />`
