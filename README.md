@@ -9,7 +9,7 @@ You can quickly navigate to those tabs, and leave notes for yourself about the t
 
 2. Open the extensions management page for your browser, most likely [chrome://extensions/](chrome://extensions/).
 
-3. Select `Load unpacked`, and select the `dist` folder. It should now appear in your extensions with the appropriate icon and description. You may have to temporarily enable `Developer Mode` to do this.
+3. Select `Load unpacked`, and select the `new-tab-group-notes-extension` folder. It should now appear in your extensions with the appropriate icon and description. You may have to temporarily enable `Developer Mode` to do this.
 
 ## Development instructions
 
