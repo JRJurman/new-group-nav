@@ -3,17 +3,18 @@ import {
   TramOneComponent,
   useEffect,
   useGlobalStore,
+  useStore,
 } from "tram-one";
-import noteSelector from "../note-selector";
 import pageScroller from "../page-scroller";
+import errorPage from "../error-page";
 import page, { collapsedPage } from "../page";
 import "./app.css";
 
 const html = registerHtml({
-  "note-selector": noteSelector,
   "page-scroller": pageScroller,
   page: page,
   "collapsed-page": collapsedPage,
+  "error-page": errorPage,
 });
 
 type TabGroup = chrome.tabGroups.TabGroup;
@@ -26,17 +27,36 @@ export interface GroupPage extends TabGroup {
 
 const app: TramOneComponent = () => {
   const groupPages = useGlobalStore("GROUP_PAGES", [] as GroupPage[]);
+  const errorStore = useStore({ error: null });
 
   // fetch tab and group information
   useEffect(async () => {
-    // tab information
-    const tabs = await chrome.tabs.query({});
+    const fetchExtensionData = async () => {
+      try {
+        // tab information
+        const tabs = await chrome.tabs.query({});
 
-    // group information
-    const tabGroups = await chrome.tabGroups.query({});
+        // group information
+        const tabGroups = await chrome.tabGroups.query({});
 
-    // storage information (includes the notes)
-    const notes = await chrome.storage.local.get();
+        // storage information (includes the notes)
+        const notes = await chrome.storage.local.get();
+        return { tabs, tabGroups, notes, error: null };
+      } catch (error) {
+        return { tabs: [], tabGroups: [], notes: {}, error };
+      }
+    };
+    const {
+      tabs,
+      tabGroups,
+      notes,
+      error: extendsionDataError,
+    } = await fetchExtensionData();
+
+    if (extendsionDataError) {
+      errorStore.error = extendsionDataError;
+      return;
+    }
 
     // the ungrouped tabs, shows up first, and aggregates all ungrouped tabs regardless of position
     const ungroupedTabPage: GroupPage = {
@@ -87,11 +107,22 @@ const app: TramOneComponent = () => {
 
   // load page notes live
   useEffect(async () => {
-    console.log(`adding change listener`);
+    const fetchThisTab = async () => {
+      try {
+        const thisTab = (
+          await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+        ).at(0);
 
-    const thisTab = await (
-      await chrome.tabs.query({ active: true, lastFocusedWindow: true })
-    ).at(0);
+        return { thisTab, error: null };
+      } catch (error) {
+        return { thisTab: null, error };
+      }
+    };
+
+    const { thisTab, error: thisTabError } = await fetchThisTab();
+    if (thisTabError) {
+      errorStore.error = thisTabError;
+    }
 
     // function to handle new changes we get to the chrome extension local storage
     const updatePageOnChanged = (changes) => {
@@ -109,7 +140,6 @@ const app: TramOneComponent = () => {
 
           // if the active tab and current tab are different, we can update safely
           if (thisTab.id !== activeTab.id) {
-            console.log(`live updating ${targetGroup.id}`);
             targetGroup.notes = change.newValue;
           }
         }
@@ -126,6 +156,24 @@ const app: TramOneComponent = () => {
     }
     return html`<page index=${index} />`;
   });
+
+  if (errorStore.error) {
+    return html`
+      <main>
+        <error-page>
+          <p>
+            An error was caught when trying to pull chrome tab data. <br />
+            This is often resolved by quiting and relaunching your browser.
+          </p>
+          <p>
+            <a href="https://github.com/JRJurman/new-tab-group-notes/issues/7">
+              If you continue to see issues, please post here.
+            </a>
+          </p>
+        </error-page>
+      </main>
+    `;
+  }
 
   return html`
     <main class="app">
