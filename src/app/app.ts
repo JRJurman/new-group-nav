@@ -40,7 +40,69 @@ const app: TramOneComponent = () => {
         const tabGroups = await chrome.tabGroups.query({});
 
         // storage information (includes the notes)
-        const notes = await chrome.storage.local.get();
+        const { tabGroupInfo: originalTabGroupInfo, ...notes } =
+          await chrome.storage.local.get();
+
+        // build an association of the ids to tab group information
+        type TabGroupInfo = {
+          [groupId: number]: { title: string; color: string };
+        };
+        const currentTabGroupInfo: TabGroupInfo = {};
+        tabGroups.forEach((tabGroup) => {
+          currentTabGroupInfo[tabGroup.id] = {
+            title: tabGroup.title,
+            color: tabGroup.color,
+          };
+        });
+
+        // check to see if each note has an associated tabGroup
+        Object.entries(notes).forEach(([originalGroupId, note]) => {
+          // first check if the group id exists (if it does, we are good, the tab group still exists)
+          const existingTargetGroup = tabGroups.find(
+            (group) => group.id === parseInt(originalGroupId)
+          );
+          if (existingTargetGroup) {
+            console.log(
+              `found matching existing group id: ${existingTargetGroup.id}, ${existingTargetGroup.title}, ${existingTargetGroup.color}`
+            );
+            return;
+          }
+
+          const originalGroupInfoForNote =
+            originalTabGroupInfo[originalGroupId];
+
+          // if we can't find the tab group info (like title and color) for this note, then it's gone :(
+          if (!originalGroupInfoForNote) {
+            return;
+          }
+
+          // check if there is a group that matches based on the tabGroupInfo
+          const [targetTabGroupId, targetTagGroupInfo] = Object.entries(
+            currentTabGroupInfo
+          ).find(([groupId, groupInfo]) => {
+            return (
+              groupInfo.title === originalGroupInfoForNote.title &&
+              groupInfo.color === originalGroupInfoForNote.color
+            );
+          });
+
+          // if we found one, then point the note to this tab group
+          if (targetTabGroupId) {
+            console.log(
+              `found matching new group id: ${targetTabGroupId}, ${targetTagGroupInfo.title}, ${targetTagGroupInfo.color}`
+            );
+
+            notes[targetTabGroupId] = notes[originalGroupId];
+            chrome.storage.local.set({
+              [targetTabGroupId]: notes[originalGroupId],
+            });
+            chrome.storage.local.remove(originalGroupId);
+          }
+        });
+
+        // save what we know to the local storage
+        chrome.storage.local.set({ tabGroupInfo: currentTabGroupInfo });
+
         return { tabs, tabGroups, notes, error: null };
       } catch (error) {
         return { tabs: [], tabGroups: [], notes: {}, error };
@@ -157,7 +219,9 @@ const app: TramOneComponent = () => {
     return html`<page index=${index} />`;
   });
 
+  // if we encountered an error, show the error page
   if (errorStore.error) {
+    console.error(errorStore.error);
     return html`
       <main>
         <error-page>
