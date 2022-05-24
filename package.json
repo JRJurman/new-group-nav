@@ -8,7 +8,7 @@
     "prebuild": "rm -rf dist",
     "build": "parcel build",
     "build:manifest": "cp manifest.json dist/manifest.json",
-    "build:zip": "mv dist new-tab-group-notes-extension && zip -r new-tab-group-notes.zip new-tab-group-notes-extension && rm -rf new-tab-group-notes-extension",
+    "build:zip": "cp -r dist new-tab-group-notes-extension && zip -r new-tab-group-notes.zip new-tab-group-notes-extension && rm -rf new-tab-group-notes-extension",
     "postbuild": "npm run build:manifest && npm run build:zip",
     "test": "jest --watch"
   },
