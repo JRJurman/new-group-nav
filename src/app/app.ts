@@ -49,18 +49,19 @@ const app: TramOneComponent = () => {
         });
 
         // storage information (includes the notes)
-        const { tabGroupInfo: originalTabGroupInfo, ...notes } =
+        const { tabGroupInfo: existingTabGroupInfo, ...notes } =
           (await chrome.storage.local.get()) || {};
 
         // build an association of the ids to tab group information
         type TabGroupInfo = {
-          [groupId: number]: { title: string; color: string };
+          [groupId: number]: { title: string; color: string; datetime: string };
         };
         const currentTabGroupInfo: TabGroupInfo = {};
         tabGroups.forEach((tabGroup) => {
           currentTabGroupInfo[tabGroup.id] = {
             title: tabGroup.title,
             color: tabGroup.color,
+            datetime: new Date().toISOString(),
           };
         });
 
@@ -71,21 +72,20 @@ const app: TramOneComponent = () => {
             (group) => group.id === parseInt(originalGroupId)
           );
           if (existingTargetGroup) {
-            console.log(
-              `found matching existing group id: ${existingTargetGroup.id}, ${existingTargetGroup.title}, ${existingTargetGroup.color}`
-            );
             return;
           }
 
+          // pull the details from when the note was last edited (like the color and title)
           const originalGroupInfoForNote =
-            originalTabGroupInfo[originalGroupId];
+            existingTabGroupInfo[originalGroupId];
 
-          // if we can't find the tab group info (like title and color) for this note, then it's gone :(
+          // if we can't find the tab group info for this note, then we have nothing to match it to
+          // it's effectively gone, and we'll have to drop it
           if (!originalGroupInfoForNote) {
             return;
           }
 
-          // check if there is a group that matches based on the tabGroupInfo
+          // if we did find the tab group info, let's see if there's a current one that matches
           const [targetTabGroupId, targetTagGroupInfo] =
             Object.entries(currentTabGroupInfo).find(([groupId, groupInfo]) => {
               return (
@@ -96,20 +96,41 @@ const app: TramOneComponent = () => {
 
           // if we found one, then point the note to this tab group
           if (targetTabGroupId) {
-            console.log(
-              `found matching new group id: ${targetTabGroupId}, ${targetTagGroupInfo.title}, ${targetTagGroupInfo.color}`
-            );
-
             notes[targetTabGroupId] = notes[originalGroupId];
+
+            // update the group id this note points to in chrome local storage
             chrome.storage.local.set({
               [targetTabGroupId]: notes[originalGroupId],
             });
+
+            // remove references to the old group id
             chrome.storage.local.remove(originalGroupId);
+            delete existingTabGroupInfo[originalGroupId];
           }
         });
 
-        // save what we know to the local storage
-        chrome.storage.local.set({ tabGroupInfo: currentTabGroupInfo });
+        // add what we know about tab groups to the local storage
+        const newTabGroupInfo: TabGroupInfo = {
+          ...existingTabGroupInfo,
+          ...currentTabGroupInfo,
+        };
+
+        // if we've reached a high number of saved tab groups,
+        // remove anything that is older than 2 weeks
+        if (Object.keys(newTabGroupInfo).length > 20) {
+          const currentTime = Date.now();
+          Object.entries(newTabGroupInfo).forEach(([groupId, { datetime }]) => {
+            const groupEntryDateTime = new Date(datetime);
+            const isOlderThan2Weeks =
+              currentTime - groupEntryDateTime.getTime() >
+              1000 * 60 * 60 * 24 * 7 * 2;
+            if (isOlderThan2Weeks) {
+              delete newTabGroupInfo[groupId];
+            }
+          });
+        }
+
+        chrome.storage.local.set({ tabGroupInfo: newTabGroupInfo });
 
         return { tabs, tabGroups, notes, error: null };
       } catch (error) {
@@ -233,13 +254,10 @@ const app: TramOneComponent = () => {
     return html`
       <main>
         <error-page>
-          <p>
-            An error was caught when trying to pull chrome tab data. <br />
-            This is often resolved by quiting and relaunching your browser.
-          </p>
+          <p>An error was caught when trying to pull chrome tab data.</p>
           <p>
             <a href="https://github.com/JRJurman/new-tab-group-notes/issues/7">
-              If you continue to see issues, please post here.
+              If you are seeing this issue, please post here!
             </a>
           </p>
         </error-page>
