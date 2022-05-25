@@ -17,6 +17,7 @@
 }
 
 .page ul {
+  height: 30vh;
   overflow: overlay;
   padding: 0;
 }
