@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "rm -rf dist && mkdir dist && cp manifest.json dist/manifest.json",
     "start": "parcel watch",
-    "prebuild": "rm -rf dist",
+    "prebuild": "rm -rf dist && rm new-tab-group-notes.zip",
     "build": "parcel build",
     "build:manifest": "cp manifest.json dist/manifest.json",
     "build:zip": "cp -r dist new-tab-group-notes-extension && zip -r new-tab-group-notes.zip new-tab-group-notes-extension && rm -rf new-tab-group-notes-extension",
