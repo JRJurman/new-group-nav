@@ -36,8 +36,17 @@ const app: TramOneComponent = () => {
         // tab information
         const tabs = await chrome.tabs.query({});
 
+        // get all the windows (so we know what windows to query for tabGroups)
+        const windows = await chrome.windows.getAll({
+          windowTypes: ["normal"],
+        });
+
         // group information
-        const tabGroups = await chrome.tabGroups.query({});
+        const tabGroups = [];
+        windows.forEach(async ({ id: windowId }) => {
+          const tabGroupsForWindow = await chrome.tabGroups.query({ windowId });
+          tabGroups.push(...tabGroupsForWindow);
+        });
 
         // storage information (includes the notes)
         const { tabGroupInfo: originalTabGroupInfo, ...notes } =
@@ -77,14 +86,13 @@ const app: TramOneComponent = () => {
           }
 
           // check if there is a group that matches based on the tabGroupInfo
-          const [targetTabGroupId, targetTagGroupInfo] = Object.entries(
-            currentTabGroupInfo
-          ).find(([groupId, groupInfo]) => {
-            return (
-              groupInfo.title === originalGroupInfoForNote.title &&
-              groupInfo.color === originalGroupInfoForNote.color
-            );
-          });
+          const [targetTabGroupId, targetTagGroupInfo] =
+            Object.entries(currentTabGroupInfo).find(([groupId, groupInfo]) => {
+              return (
+                groupInfo.title === originalGroupInfoForNote.title &&
+                groupInfo.color === originalGroupInfoForNote.color
+              );
+            }) || [];
 
           // if we found one, then point the note to this tab group
           if (targetTabGroupId) {
