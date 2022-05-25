@@ -4,7 +4,7 @@
   "private": true,
   "source": "src/index.html",
   "scripts": {
-    "prestart": "cp manifest.json dist/manifest.json",
+    "prestart": "mkdir dist && cp manifest.json dist/manifest.json",
     "start": "parcel watch",
     "prebuild": "rm -rf dist",
     "build": "parcel build",
