@@ -72,7 +72,7 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
     >
       <h1>
         <span>${isUngrouped ? "Ungrouped" : targetGroupPage.title}</span>
-        <span onclick=${collapseTab}>${collapseIcon()}</span>
+        <button onclick=${collapseTab}>${collapseIcon()}</button>
       </h1>
       <ul>
         ${tabLinks}

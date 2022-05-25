@@ -56,7 +56,7 @@ const collapsedPage: TramOneComponent = ({ index }: { index: number }) => {
       class="collapsed-page ${animationClassNames}"
       page-color=${targetGroupPage.color}
     >
-      <span onclick=${expandTab}>${expandIcon()}</span>
+      <button onclick=${expandTab}>${expandIcon()}</button>
 
       <h1 class="${ungroupedClass}">${targetGroupPage.title || tabTitles}</h1>
     </section>

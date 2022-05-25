@@ -24,3 +24,8 @@
   font-size: 1.4em;
   height: 100%;
 }
+
+.page button {
+  background: inherit;
+  padding: 0px;
+}

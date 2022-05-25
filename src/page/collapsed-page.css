@@ -23,3 +23,8 @@
   font-size: var(--font-size-3);
   transform: rotate(-90deg) translateY(calc(1.75em - 80vh));
 }
+
+.collapsed-page button {
+  background: inherit;
+  padding: 0px;
+}
