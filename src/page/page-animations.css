@@ -1,0 +1,50 @@
+/* animation for collapsing the page to a collapsed-page */
+@keyframes collapsing {
+  0% {
+    width: 535px;
+    margin-right: 0px;
+  }
+
+  100% {
+    width: 0em;
+    /* account for 12px of padding that need to be overlapped, and then some */
+    margin-right: -48px;
+  }
+}
+
+/* set the page elements to not squeeze as we animate the page getting smaller */
+.page.animating h1,
+.page.animating ul,
+.page.animating textarea {
+  /* account for 24px of padding here */
+  width: calc(535px - 24px);
+}
+.page.collapsing {
+  animation: collapsing 1s;
+}
+
+/* start from where collapse ended */
+@keyframes uncollapse {
+  0% {
+    width: 0px;
+    margin-right: -48px;
+  }
+
+  100% {
+    width: 4em;
+    margin-right: 0px;
+  }
+}
+
+.collapsed-page.collapsing {
+  animation: uncollapse 0.5s;
+}
+
+/* animation for expanding the collapsed-page to a page */
+.collapsed-page.expanding {
+  animation: uncollapse 0.5s reverse;
+}
+
+.page.expanding {
+  animation: collapsing 1s reverse;
+}

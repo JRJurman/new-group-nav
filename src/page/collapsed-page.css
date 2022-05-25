@@ -1,0 +1,25 @@
+.collapsed-page {
+  padding: 12px;
+  width: 4em;
+}
+
+.collapsed-page svg {
+  margin: auto;
+  padding-top: 9px;
+}
+
+.collapsed-page h1 {
+  max-inline-size: none; /* unset open-props limit on h1 size */
+  text-align: center;
+  transform-origin: 100% 100%;
+  white-space: nowrap;
+  width: 80vh;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transform: rotate(-90deg) translateY(calc(1em - 80vh));
+}
+
+.collapsed-page h1.ungrouped {
+  font-size: var(--font-size-3);
+  transform: rotate(-90deg) translateY(calc(1.75em - 80vh));
+}

@@ -8,5 +8,5 @@ const buildIcon = (svg) => {
   return iconElement.firstElementChild;
 };
 
-export const collapseIcon = () => buildIcon(chevronRightSvg);
-export const expandIcon = () => buildIcon(chevronLeftSvg);
+export const expandIcon = () => buildIcon(chevronRightSvg);
+export const collapseIcon = () => buildIcon(chevronLeftSvg);

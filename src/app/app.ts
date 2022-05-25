@@ -23,6 +23,8 @@ type Tab = chrome.tabs.Tab;
 export interface GroupPage extends TabGroup {
   tabs?: Tab[];
   notes?: string;
+  isCollapsing?: boolean;
+  isExpanding?: boolean;
 }
 
 const app: TramOneComponent = () => {

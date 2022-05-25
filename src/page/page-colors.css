@@ -1,0 +1,75 @@
+/* map tab group colors to open-props colors */
+@media (prefers-color-scheme: light) {
+  [page-color="blue"] {
+    background: var(--blue-2);
+  }
+
+  [page-color="cyan"] {
+    background: var(--cyan-2);
+  }
+
+  [page-color="green"] {
+    background: var(--green-2);
+  }
+
+  [page-color="grey"] {
+    background: var(--gray-3);
+  }
+
+  [page-color="orange"] {
+    background: var(--orange-2);
+  }
+
+  [page-color="pink"] {
+    background: var(--pink-2);
+  }
+
+  [page-color="purple"] {
+    background: var(--violet-2);
+  }
+
+  [page-color="red"] {
+    background: var(--red-2);
+  }
+
+  [page-color="yellow"] {
+    background: var(--yellow-2);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  [page-color="blue"] {
+    background: #29303c;
+  }
+
+  [page-color="cyan"] {
+    background: #293a3c;
+  }
+
+  [page-color="green"] {
+    background: #293c2c;
+  }
+
+  [page-color="grey"] {
+    background: #414141;
+  }
+
+  [page-color="orange"] {
+    background: #3c3029;
+  }
+
+  [page-color="pink"] {
+    background: #3c293b;
+  }
+
+  [page-color="purple"] {
+    background: #2e293c;
+  }
+
+  [page-color="red"] {
+    background: #3c2929;
+  }
+
+  [page-color="yellow"] {
+    background: #3b3c29;
+  }
+}
