@@ -17,6 +17,7 @@
 }
 
 .page ul {
+  overflow: overlay;
   padding: 0;
 }
 
