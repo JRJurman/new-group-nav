@@ -1,6 +1,8 @@
 .collapsed-page {
   padding: 12px;
   width: 4em;
+
+  box-shadow: var(--shadow-5);
 }
 
 .collapsed-page svg {
