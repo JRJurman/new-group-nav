@@ -41,7 +41,16 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
       />`
   );
 
-  const collapseTab = () => {
+  const collapseTab = async () => {
+    // first load the latest version of the note
+    // otherwise during collapsing we reset to the initial version of the note
+    const updatedNotes = ((await chrome.storage.local.get(
+      `${targetGroupPage.id}`
+    )) || {})[`${targetGroupPage.id}`];
+    if (updatedNotes) {
+      targetGroupPage.notes = updatedNotes;
+    }
+
     // if user prefers reduced motion, just collapse the tab
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       targetGroupPage.collapsed = true;
