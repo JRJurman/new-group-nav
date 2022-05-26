@@ -57,6 +57,14 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
 
   const isUngrouped = targetGroupPage.title === undefined;
 
+  // for now, ungrouped tabs can not be collapsed
+  // this causes a bunch of visual issues when animated, and isn't totally worth working around
+  // in the future we may enable this, but for now, it is the only uncollapsable group
+  const isCollapsable = !isUngrouped;
+  const collapseControl = isCollapsable
+    ? html`<button onclick=${collapseTab}>${collapseIcon()}</button>`
+    : "";
+
   const animationClassNames = `${
     targetGroupPage.isCollapsing || targetGroupPage.isExpanding
       ? "animating"
@@ -72,7 +80,7 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
     >
       <h1>
         <span>${isUngrouped ? "Ungrouped" : targetGroupPage.title}</span>
-        <button onclick=${collapseTab}>${collapseIcon()}</button>
+        ${collapseControl}
       </h1>
       <ul>
         ${tabLinks}
