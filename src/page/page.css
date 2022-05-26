@@ -9,6 +9,13 @@
   gap: 10px;
 }
 
+/* if we are in light mode, made the shadow more pronounced */
+@media (prefers-color-scheme: light) {
+  .page {
+    box-shadow: var(--shadow-6);
+  }
+}
+
 .page h1 {
   max-inline-size: none; /* unset open-props limit on h1 size */
   display: flex;

@@ -5,6 +5,13 @@
   box-shadow: var(--shadow-5);
 }
 
+/* if we are in light mode, made the shadow more pronounced */
+@media (prefers-color-scheme: light) {
+  .collapsed-page {
+    box-shadow: var(--shadow-6);
+  }
+}
+
 .collapsed-page svg {
   margin: auto;
   padding-top: 9px;
