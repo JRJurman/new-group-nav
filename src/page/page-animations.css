@@ -19,6 +19,9 @@
   /* account for 24px of padding here */
   width: calc(535px - 24px);
 }
+.collapsed-page.animating h1 {
+  width: 80vh;
+}
 .page.collapsing {
   animation: collapsing 0.8s;
 }

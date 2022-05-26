@@ -1,5 +1,6 @@
 .page {
   width: 535px;
+  height: 100%;
   padding: 1em;
   box-shadow: var(--shadow-5);
   background: var(--surface-1);

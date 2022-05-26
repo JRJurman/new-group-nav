@@ -250,13 +250,6 @@ const app: TramOneComponent = () => {
     chrome.storage.onChanged.addListener(updatePageOnChanged);
   });
 
-  const pages = groupPages.map((group, index) => {
-    if (group.collapsed) {
-      return html`<collapsed-page index=${index} />`;
-    }
-    return html`<page index=${index} />`;
-  });
-
   // if we encountered an error, show the error page
   if (errorStore.error) {
     console.error(errorStore.error);
@@ -276,10 +269,7 @@ const app: TramOneComponent = () => {
 
   return html`
     <main class="app">
-      <page-scroller>
-        ${pages}
-        <blank-page />
-      </page-scroller>
+      <page-scroller />
     </main>
   `;
 };
