@@ -1,5 +1,7 @@
 # New Tab Group Notes
 
+<p align="center"><a href="#" target="_blank"><img src="./icon/new-tab-group-notes-icon.svg" width="128"></a></p>
+
 This is a chrome-extension that replaces your new tab with a tab-group organizer!
 You can quickly navigate to those tabs, and leave notes for yourself about the tabs on this page!
 

@@ -227,6 +227,12 @@ const app: TramOneComponent = () => {
             (page) => page.id === parseInt(groupId)
           );
 
+          // if we couldn't find a target group, perhaps this tab doesn't have the latest groups
+          // for now, just ignore, and expect a refresh
+          if (!targetGroup) {
+            return;
+          }
+
           // get the current active tab
           const activeTab = await (
             await chrome.tabs.query({ active: true, lastFocusedWindow: true })

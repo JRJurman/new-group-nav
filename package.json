@@ -4,13 +4,14 @@
   "private": true,
   "source": "src/index.html",
   "scripts": {
-    "prestart": "rm -rf dist && mkdir dist && cp manifest.json dist/manifest.json",
+    "prestart": "rm -rf dist && mkdir dist && npm run build:manifest && npm run build:icon",
     "start": "parcel watch",
     "prebuild": "rm -rf dist && rm new-tab-group-notes.zip",
     "build": "parcel build",
+    "build:icon": "svgexport ./icon/icon_svgexport.json",
     "build:manifest": "cp manifest.json dist/manifest.json",
     "build:zip": "cp -r dist new-tab-group-notes-extension && zip -r new-tab-group-notes.zip new-tab-group-notes-extension && rm -rf new-tab-group-notes-extension",
-    "postbuild": "npm run build:manifest && npm run build:zip",
+    "postbuild": "npm run build:icon && npm run build:manifest && npm run build:zip",
     "test": "jest --watch"
   },
   "repository": "https://github.com/JRJurman/new-tab-group-notes",
@@ -35,6 +36,7 @@
     "open-props": "^1.3.16",
     "parcel": "^2.5.0",
     "prettier": "^2.6.2",
+    "svgexport": "^0.4.2",
     "tram-one": "^12.0.2",
     "ts-jest": "^28.0.2"
   }

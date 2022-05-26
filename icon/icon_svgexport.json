@@ -1,0 +1,12 @@
+[
+  {
+    "input": [".//new-tab-group-notes-icon.svg"],
+    "output": [
+      ["../dist/icon16.png", "pad", "16:16"],
+      ["../dist/icon32.png", "pad", "32:32"],
+      ["../dist/icon48.png", "pad", "48:48"],
+      ["../dist/icon128.png", "pad", "128:128"],
+      ["../dist/icon512.png", "pad", "512:512"]
+    ]
+  }
+]
