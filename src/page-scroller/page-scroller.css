@@ -14,7 +14,8 @@
 }
 
 .page-scroller .page,
-.page-scroller .collapsed-page {
+.page-scroller .collapsed-page,
+.page-scroller .blank-page {
   flex: none;
   position: sticky;
   left: 0;

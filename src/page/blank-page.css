@@ -1,0 +1,7 @@
+.blank-page {
+  display: block;
+  /* just a little larger, so that text doesn't appear from behind it when it animates */
+  width: calc(535px + 2em);
+
+  background: var(--surface-1);
+}
