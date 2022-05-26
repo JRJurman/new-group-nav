@@ -20,7 +20,7 @@
   width: calc(535px - 24px);
 }
 .page.collapsing {
-  animation: collapsing 1s;
+  animation: collapsing 0.8s;
 }
 
 /* start from where collapse ended */
@@ -37,14 +37,14 @@
 }
 
 .collapsed-page.collapsing {
-  animation: uncollapse 0.5s;
+  animation: uncollapse 0.3s;
 }
 
 /* animation for expanding the collapsed-page to a page */
 .collapsed-page.expanding {
-  animation: uncollapse 0.5s reverse;
+  animation: uncollapse 0.3s reverse;
 }
 
 .page.expanding {
-  animation: collapsing 1s reverse;
+  animation: collapsing 0.8s reverse;
 }

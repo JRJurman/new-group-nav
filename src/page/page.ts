@@ -28,7 +28,7 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
       // if we were expanding or collapsing, clear that
       targetGroupPage.isExpanding = false;
       targetGroupPage.isCollapsing = false;
-    }, 1000);
+    }, 800);
   });
 
   const tabLinks = targetGroupPage.tabs.map(
@@ -52,7 +52,7 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
     targetGroupPage.isCollapsing = true;
     setTimeout(() => {
       targetGroupPage.collapsed = true;
-    }, 800);
+    }, 600);
   };
 
   const isUngrouped = targetGroupPage.title === undefined;

@@ -23,7 +23,7 @@ const collapsedPage: TramOneComponent = ({ index }: { index: number }) => {
       // if we were expanding or collapsing, clear that
       targetGroupPage.isExpanding = false;
       targetGroupPage.isCollapsing = false;
-    }, 1000);
+    }, 800);
   });
 
   const expandTab = () => {
@@ -37,7 +37,7 @@ const collapsedPage: TramOneComponent = ({ index }: { index: number }) => {
     targetGroupPage.isExpanding = true;
     setTimeout(() => {
       targetGroupPage.collapsed = false;
-    }, 500);
+    }, 300);
   };
 
   const animationClassNames = `${
