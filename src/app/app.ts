@@ -7,14 +7,10 @@ import {
 } from "tram-one";
 import pageScroller from "../page-scroller";
 import errorPage from "../error-page";
-import page, { collapsedPage, blankPage } from "../page";
 import "./app.css";
 
 const html = registerHtml({
   "page-scroller": pageScroller,
-  page: page,
-  "collapsed-page": collapsedPage,
-  "blank-page": blankPage,
   "error-page": errorPage,
 });
 

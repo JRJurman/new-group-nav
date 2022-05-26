@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "rm -rf dist && mkdir dist && npm run build:manifest && npm run build:icon",
     "start": "parcel watch",
-    "prebuild": "rm -rf dist && rm new-tab-group-notes.zip",
+    "prebuild": "rm -rf dist && rm -f new-tab-group-notes.zip",
     "build": "parcel build",
     "build:icon": "svgexport ./icon/icon_svgexport.json",
     "build:manifest": "cp manifest.json dist/manifest.json",
