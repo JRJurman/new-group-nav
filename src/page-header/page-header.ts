@@ -14,7 +14,13 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
   const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
   const targetGroupPage = groupPages[index];
 
-  /* actions */
+  const focusOnNotes = () => {
+    const relatedNotes = document.querySelector(
+      `.note-${index}`
+    ) as HTMLTextAreaElement;
+    relatedNotes.focus();
+  };
+
   const collapseTab = async () => {
     // first load the latest version of the note
     // otherwise during collapsing we reset to the initial version of the note
@@ -72,6 +78,9 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
   return html`
     <h1 class="page-header">
       <span>${targetGroupPage.title || "Ungrouped"}</span>
+      <button onclick=${focusOnNotes} class="skip-to-content">
+        Skip to notes
+      </button>
       <button aria-label="collapse" onclick=${collapseTab}>
         ${collapseIcon()}
       </button>

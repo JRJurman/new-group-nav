@@ -14,7 +14,7 @@ const pageNotes: TramOneComponent = ({ index }: { index: number }) => {
 
   return html`
     <textarea
-      class="page-notes"
+      class="page-notes note-${index}"
       oninput=${updateNotes}
       placeholder="Jot notes here for your tab group!"
     >

@@ -1,0 +1,9 @@
+button.skip-to-content {
+  font-size: 0.5em;
+  pointer-events: none;
+  opacity: 0;
+}
+
+button.skip-to-content:focus {
+  opacity: 1;
+}
