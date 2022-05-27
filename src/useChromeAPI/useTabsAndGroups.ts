@@ -1,5 +1,5 @@
 import { useEffect, useGlobalStore } from "tram-one";
-import { GroupPage } from "../app";
+import { GroupPage, TabGroupInfo } from "../types";
 
 const useTabsAndGroups = () => {
   const groupPages = useGlobalStore("GROUP_PAGES", [] as GroupPage[]);
@@ -29,9 +29,6 @@ const useTabsAndGroups = () => {
           (await chrome.storage.local.get()) || {};
 
         // build an association of the ids to tab group information
-        type TabGroupInfo = {
-          [groupId: number]: { title: string; color: string; datetime: string };
-        };
         const currentTabGroupInfo: TabGroupInfo = {};
         tabGroups.forEach((tabGroup) => {
           currentTabGroupInfo[tabGroup.id] = {

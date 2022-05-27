@@ -1,5 +1,5 @@
 import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
-import { GroupPage } from "../app";
+import { GroupPage } from "../types";
 import { expandIcon, collapseIcon } from "../icons";
 import "./page-header.css";
 

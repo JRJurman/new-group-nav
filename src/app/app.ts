@@ -9,16 +9,6 @@ const html = registerHtml({
   "error-page": errorPage,
 });
 
-type TabGroup = chrome.tabGroups.TabGroup;
-type Tab = chrome.tabs.Tab;
-
-export interface GroupPage extends TabGroup {
-  tabs?: Tab[];
-  notes?: string;
-  isCollapsing?: boolean;
-  isExpanding?: boolean;
-}
-
 const app: TramOneComponent = () => {
   const errorStore = useGlobalStore("ERROR_STORE", { error: null });
 

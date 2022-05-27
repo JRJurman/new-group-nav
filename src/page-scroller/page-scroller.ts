@@ -1,5 +1,5 @@
 import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
-import { GroupPage } from "../app";
+import { GroupPage } from "../types";
 import page, { blankPage } from "../page";
 import "./page-scroller.css";
 

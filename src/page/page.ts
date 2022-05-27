@@ -1,5 +1,5 @@
 import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
-import { GroupPage } from "../app";
+import { GroupPage } from "../types";
 import tabLink from "../tab-link";
 import pageNotes from "../page-notes";
 import pageHeader from "../page-header";

@@ -1,5 +1,5 @@
 import { useEffect, useGlobalStore } from "tram-one";
-import { GroupPage } from "../app";
+import { GroupPage } from "../types";
 
 const useTabGroupNotes = () => {
   const groupPages = useGlobalStore("GROUP_PAGES", [] as GroupPage[]);
