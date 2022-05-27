@@ -41,6 +41,8 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
     setTimeout(() => {
       targetGroupPage.collapsed = true;
     }, 600);
+
+    // eventually clear the fact that we were animating (once it completes)
     setTimeout(() => {
       targetGroupPage.isCollapsing = false;
     }, 1000);
@@ -58,6 +60,8 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
     setTimeout(() => {
       targetGroupPage.collapsed = false;
     }, 300);
+
+    // eventually clear the fact that we were animating (once it completes)
     setTimeout(() => {
       targetGroupPage.isExpanding = false;
     }, 1000);

@@ -27,3 +27,10 @@ Below are a list of commands used for development. The logic for all the command
 - `npm start` - builds the project into the dist folder and starts a watch loop for changes
 - `npm run build` - builds a final distributable using [Parcel](https://parceljs.org/)
 - `npm test` - runs tests in [Jest](https://jestjs.io/) watch loop
+
+## Resources
+
+- Logo created by Jesse Jurman for this Project
+- Written in [Tram-One](https://tram-one.io/)
+- Styles from [Open Props](https://open-props.style/)
+- Other icons from [Feather](https://feathericons.com/)

@@ -25,6 +25,7 @@ const app: TramOneComponent = () => {
     `;
   }
 
+  // if we didn't encounter an error, show the app, with the pages!
   return html`
     <main class="app">
       <page-scroller />
