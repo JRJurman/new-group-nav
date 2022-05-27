@@ -1,17 +1,17 @@
-# New Tab Group Notes
+# New Group Nav
 
-<p align="center"><a href="#" target="_blank"><img src="./icon/new-tab-group-notes-icon.svg" width="128"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="./icon/new-group-nav-icon.svg" width="128"></a></p>
 
 This is a chrome-extension that replaces your new tab with a tab-group organizer!
 You can quickly navigate to those tabs, and leave notes for yourself about the tabs on this page!
 
 ### Local Installation
 
-1. [Download `new-tab-group-notes.zip` from the releases tab](https://github.com/JRJurman/new-tab-group-notes/releases) of the project onto your local machine. Extract the folder onto your local machine.
+1. [Download `new-group-nav.zip` from the releases tab](https://github.com/JRJurman/new-group-nav/releases) of the project onto your local machine. Extract the folder onto your local machine.
 
 2. Open the extensions management page for your browser, most likely [chrome://extensions/](chrome://extensions/).
 
-3. Select `Load unpacked`, and select the `new-tab-group-notes-extension` folder. It should now appear in your extensions with the appropriate icon and description. You may have to temporarily enable `Developer Mode` to do this.
+3. Select `Load unpacked`, and select the `new-group-nav-extension` folder. It should now appear in your extensions with the appropriate icon and description. You may have to temporarily enable `Developer Mode` to do this.
 
 ## Development instructions
 

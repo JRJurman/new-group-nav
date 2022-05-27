@@ -10,7 +10,7 @@ const errorPage: TramOneComponent = () => {
       <h1>Oh no, an error!</h1>
       <p>An error was caught when trying to pull chrome tab data.</p>
       <p>
-        <a href="https://github.com/JRJurman/new-tab-group-notes/issues/7">
+        <a href="https://github.com/JRJurman/new-group-nav/issues/7">
           If you are seeing this issue, please post here!
         </a>
       </p>

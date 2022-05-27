@@ -1,6 +1,6 @@
 [
   {
-    "input": [".//new-tab-group-notes-icon.svg"],
+    "input": [".//new-group-nav-icon.svg"],
     "output": [
       ["../dist/icon16.png", "pad", "16:16"],
       ["../dist/icon32.png", "pad", "32:32"],

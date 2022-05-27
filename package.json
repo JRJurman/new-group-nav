@@ -1,20 +1,20 @@
 {
-  "name": "new-tab-group-notes",
+  "name": "new-group-nav",
   "version": "0.4.0",
   "private": true,
   "source": "src/index.html",
   "scripts": {
     "prestart": "rm -rf dist && mkdir dist && npm run build:manifest && npm run build:icon",
     "start": "parcel watch",
-    "prebuild": "rm -rf dist && rm -f new-tab-group-notes.zip",
+    "prebuild": "rm -rf dist && rm -f new-group-nav.zip",
     "build": "parcel build",
     "build:icon": "svgexport ./icon/icon_svgexport.json",
     "build:manifest": "cp manifest.json dist/manifest.json",
-    "build:zip": "cp -r dist new-tab-group-notes-extension && zip -r new-tab-group-notes.zip new-tab-group-notes-extension && rm -rf new-tab-group-notes-extension",
+    "build:zip": "cp -r dist new-group-nav-extension && zip -r new-group-nav.zip new-group-nav-extension && rm -rf new-group-nav-extension",
     "postbuild": "npm run build:icon && npm run build:manifest && npm run build:zip",
     "test": "jest --watch"
   },
-  "repository": "https://github.com/JRJurman/new-tab-group-notes",
+  "repository": "https://github.com/JRJurman/new-group-nav",
   "license": "MIT",
   "author": {
     "name": "Jesse Jurman",
