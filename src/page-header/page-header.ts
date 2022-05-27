@@ -1,6 +1,6 @@
-import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
-import { GroupPage } from "../types";
+import { registerHtml, TramOneComponent } from "tram-one";
 import { expandIcon, collapseIcon } from "../icons";
+import useTargetGroupPage from "../useTargetGroupPage";
 import "./page-header.css";
 
 const html = registerHtml();
@@ -11,8 +11,7 @@ type pageHeaderProps = {
 
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
 const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
-  const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
-  const targetGroupPage = groupPages[index];
+  const targetGroupPage = useTargetGroupPage(index);
 
   const focusOnNotes = () => {
     const relatedNotes = document.querySelector(

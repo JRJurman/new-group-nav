@@ -1,5 +1,4 @@
-import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
-import { GroupPage } from "../types";
+import { registerHtml, TramOneComponent } from "tram-one";
 import pageTabs from "../page-tabs";
 import pageNotes from "../page-notes";
 import pageHeader from "../page-header";
@@ -7,6 +6,7 @@ import "./expanded-page.css";
 import "./collapsed-page.css";
 import "./page-animations.css";
 import "./page-colors.css";
+import useTargetGroupPage from "../useTargetGroupPage";
 
 const html = registerHtml({
   "page-tabs": pageTabs,
@@ -16,8 +16,7 @@ const html = registerHtml({
 
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
 const pageController: TramOneComponent = ({ index }: { index: number }) => {
-  const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
-  const targetGroupPage = groupPages[index];
+  const targetGroupPage = useTargetGroupPage(index);
 
   const animationClassNames = [
     targetGroupPage.isCollapsing || targetGroupPage.isExpanding

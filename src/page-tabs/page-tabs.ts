@@ -1,5 +1,5 @@
-import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
-import { GroupPage } from "../types";
+import { registerHtml, TramOneComponent } from "tram-one";
+import useTargetGroupPage from "../useTargetGroupPage";
 import tabLink from "./tab-link";
 
 const html = registerHtml({
@@ -12,8 +12,7 @@ type pageTabsProps = {
 
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
 const pageTabs: TramOneComponent = ({ index }: pageTabsProps) => {
-  const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
-  const targetGroupPage = groupPages[index];
+  const targetGroupPage = useTargetGroupPage(index);
 
   const tabLinks = targetGroupPage.tabs.map(
     (tab) =>
