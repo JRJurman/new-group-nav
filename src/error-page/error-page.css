@@ -9,3 +9,10 @@
   padding-top: 1em;
   margin: auto;
 }
+
+.error-page textarea {
+  margin: auto;
+  margin-top: 2em;
+  width: 600px;
+  height: 400px;
+}
