@@ -61,7 +61,9 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
   if (targetGroupPage.collapsed) {
     return html`
       <h1 class="page-header">
-        <button onclick=${expandTab}>${expandIcon()}</button>
+        <button aria-label="expand" onclick=${expandTab}>
+          ${expandIcon()}
+        </button>
         <span>${targetGroupPage.title || "Ungrouped"}</span>
       </h1>
     `;
@@ -70,7 +72,9 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
   return html`
     <h1 class="page-header">
       <span>${targetGroupPage.title || "Ungrouped"}</span>
-      <button onclick=${collapseTab}>${collapseIcon()}</button>
+      <button aria-label="collapse" onclick=${collapseTab}>
+        ${collapseIcon()}
+      </button>
     </h1>
   `;
 };
