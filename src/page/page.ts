@@ -1,6 +1,6 @@
 import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
 import { GroupPage } from "../types";
-import tabLink from "../tab-link";
+import pageTabs from "../page-tabs";
 import pageNotes from "../page-notes";
 import pageHeader from "../page-header";
 import "./expanded-page.css";
@@ -9,7 +9,7 @@ import "./page-animations.css";
 import "./page-colors.css";
 
 const html = registerHtml({
-  "tab-link": tabLink,
+  "page-tabs": pageTabs,
   "page-notes": pageNotes,
   "page-header": pageHeader,
 });
@@ -18,16 +18,6 @@ const html = registerHtml({
 const pageController: TramOneComponent = ({ index }: { index: number }) => {
   const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
   const targetGroupPage = groupPages[index];
-
-  const tabLinks = targetGroupPage.tabs.map(
-    (tab) =>
-      html`<tab-link
-        index=${tab.index}
-        windowId=${tab.windowId}
-        favicon=${tab.favIconUrl}
-        title=${tab.title}
-      />`
-  );
 
   const animationClassNames = [
     targetGroupPage.isCollapsing || targetGroupPage.isExpanding
@@ -54,9 +44,7 @@ const pageController: TramOneComponent = ({ index }: { index: number }) => {
       page-color=${targetGroupPage.color}
     >
       <page-header index=${index} />
-      <ul>
-        ${tabLinks}
-      </ul>
+      <page-tabs index=${index} />
       <page-notes index=${index} />
     </section>
   `;

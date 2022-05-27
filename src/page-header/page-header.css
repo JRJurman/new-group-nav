@@ -4,6 +4,6 @@ button.skip-to-content {
   opacity: 0;
 }
 
-button.skip-to-content:focus {
+button.skip-to-content:focus-visible {
   opacity: 1;
 }
