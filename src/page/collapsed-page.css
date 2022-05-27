@@ -1,4 +1,4 @@
-.collapsed-page {
+.page.collapsed {
   padding: 12px;
   width: 4em;
   height: 100%;
@@ -8,18 +8,18 @@
 
 /* if we are in light mode, made the shadow more pronounced */
 @media (prefers-color-scheme: light) {
-  .collapsed-page {
+  .page.collapsed {
     box-shadow: var(--shadow-6);
   }
 }
 
-.collapsed-page svg {
+.page.collapsed svg {
   margin: auto;
-  padding-top: 9px;
+  padding-top: 8px;
 }
 
-.collapsed-page h1 {
-  max-inline-size: none; /* unset open-props limit on h1 size */
+.page.collapsed h1 span {
+  display: inline-block;
   text-align: center;
   transform-origin: 100% 100%;
   white-space: nowrap;
@@ -29,12 +29,7 @@
   transform: rotate(-90deg) translateY(calc(1em - 80vh));
 }
 
-.collapsed-page h1.ungrouped {
-  font-size: var(--font-size-3);
-  transform: rotate(-90deg) translateY(calc(1.75em - 80vh));
-}
-
-.collapsed-page button {
+.page.collapsed button {
   background: inherit;
   padding: 0px;
 }

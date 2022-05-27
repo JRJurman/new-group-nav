@@ -1,5 +1,4 @@
 import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
-import "./page.css";
 
 const html = registerHtml();
 

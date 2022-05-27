@@ -13,7 +13,7 @@
   overflow-x: auto;
 }
 
-.page-scroller .page-controller,
+.page-scroller .page,
 .page-scroller .blank-page {
   flex: none;
   position: sticky;

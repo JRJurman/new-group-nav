@@ -13,13 +13,13 @@
 }
 
 /* set the page elements to not squeeze as we animate the page getting smaller */
-.page.animating h1,
-.page.animating ul,
-.page.animating textarea {
+.page.expanded.animating h1,
+.page.expanded.animating ul,
+.page.expanded.animating textarea {
   /* account for 24px of padding here */
   width: calc(535px - 24px);
 }
-.collapsed-page.animating h1 {
+.page.collapsed.animating h1 {
   width: 80vh;
 }
 .page.collapsing {
@@ -39,15 +39,15 @@
   }
 }
 
-.collapsed-page.collapsing {
+.page.collapsed.collapsing {
   animation: uncollapse 0.3s;
 }
 
 /* animation for expanding the collapsed-page to a page */
-.collapsed-page.expanding {
+.page.collapsed.expanding {
   animation: uncollapse 0.3s reverse;
 }
 
-.page.expanding {
+.page.expanded.expanding {
   animation: collapsing 0.8s reverse;
 }

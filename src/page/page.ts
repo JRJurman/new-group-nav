@@ -1,35 +1,23 @@
-import {
-  registerHtml,
-  TramOneComponent,
-  useEffect,
-  useGlobalStore,
-} from "tram-one";
-import { collapseIcon } from "../icons";
-import tabLink from "../tab-link";
+import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
 import { GroupPage } from "../app";
-import pageNotes from "./page-notes";
-import "./page.css";
-import "./page-colors.css";
+import tabLink from "../tab-link";
+import pageNotes from "../page-notes";
+import pageHeader from "../page-header";
+import "./expanded-page.css";
+import "./collapsed-page.css";
 import "./page-animations.css";
+import "./page-colors.css";
 
 const html = registerHtml({
   "tab-link": tabLink,
   "page-notes": pageNotes,
+  "page-header": pageHeader,
 });
 
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const page: TramOneComponent = ({ index }: { index: number }) => {
+const pageController: TramOneComponent = ({ index }: { index: number }) => {
   const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
   const targetGroupPage = groupPages[index];
-
-  // clear animation styles
-  useEffect(() => {
-    setTimeout(() => {
-      // if we were expanding or collapsing, clear that
-      targetGroupPage.isExpanding = false;
-      targetGroupPage.isCollapsing = false;
-    }, 800);
-  });
 
   const tabLinks = targetGroupPage.tabs.map(
     (tab) =>
@@ -41,48 +29,31 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
       />`
   );
 
-  const collapseTab = async () => {
-    // first load the latest version of the note
-    // otherwise during collapsing we reset to the initial version of the note
-    const updatedNotes = ((await chrome.storage.local.get(
-      `${targetGroupPage.id}`
-    )) || {})[`${targetGroupPage.id}`];
-    if (updatedNotes) {
-      targetGroupPage.notes = updatedNotes;
-    }
-
-    // if user prefers reduced motion, just collapse the tab
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      targetGroupPage.collapsed = true;
-      return;
-    }
-
-    // if the user is okay with motion, let's animate and then collapse
-    targetGroupPage.isCollapsing = true;
-    setTimeout(() => {
-      targetGroupPage.collapsed = true;
-    }, 600);
-  };
-
-  const isUngrouped = targetGroupPage.title === undefined;
-
-  const animationClassNames = `${
+  const animationClassNames = [
     targetGroupPage.isCollapsing || targetGroupPage.isExpanding
       ? "animating"
-      : ""
-  } ${targetGroupPage.isCollapsing ? "collapsing" : ""} ${
-    targetGroupPage.isExpanding ? "expanding" : ""
-  }`;
+      : "",
+    targetGroupPage.isCollapsing ? "collapsing" : "",
+    targetGroupPage.isExpanding ? "expanding" : "",
+  ].join(" ");
+
+  if (targetGroupPage.collapsed) {
+    return html`
+      <section
+        class="page collapsed ${animationClassNames}"
+        page-color=${targetGroupPage.color}
+      >
+        <page-header index=${index} />
+      </section>
+    `;
+  }
 
   return html`
     <section
-      class="page ${animationClassNames}"
+      class="page expanded ${animationClassNames}"
       page-color=${targetGroupPage.color}
     >
-      <h1>
-        <span>${isUngrouped ? "Ungrouped" : targetGroupPage.title}</span>
-        <button onclick=${collapseTab}>${collapseIcon()}</button>
-      </h1>
+      <page-header index=${index} />
       <ul>
         ${tabLinks}
       </ul>
@@ -91,4 +62,4 @@ const page: TramOneComponent = ({ index }: { index: number }) => {
   `;
 };
 
-export default page;
+export default pageController;
