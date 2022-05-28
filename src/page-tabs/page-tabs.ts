@@ -14,7 +14,7 @@ type pageTabsProps = {
 const pageTabs: TramOneComponent = ({ index }: pageTabsProps) => {
   const targetGroupPage = useTargetGroupPage(index);
 
-  const tabLinks = targetGroupPage.tabs.map(
+  const tabLinks = (targetGroupPage.tabs || []).map(
     (tab) =>
       html`<tab-link
         index=${tab.index}

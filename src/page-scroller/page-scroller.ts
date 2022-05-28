@@ -29,7 +29,6 @@ const pageScroller: TramOneComponent = (props, children) => {
       // if the element is both hovered and focused, check what kind of element it is
       // in some cases we want to skip scrolling, since that would mess with the click event
       if (focusedHoveredElement.matches("a, button")) {
-        console.log("cancelled scrolling");
         return;
       }
     }

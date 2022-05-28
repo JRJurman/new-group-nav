@@ -20,7 +20,7 @@
   max-inline-size: none; /* unset open-props limit on h1 size */
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 }
 
 .page.expanded ul {
