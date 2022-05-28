@@ -1,8 +1,7 @@
 .tab-link {
-  text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  cursor: pointer;
+  text-overflow: ellipsis;
 }
 
 .tab-link img {
@@ -13,6 +12,15 @@
   vertical-align: middle;
 }
 
-.tab-link a {
+.tab-link button {
   color: var(--text-1);
+  outline-offset: -5px;
+}
+
+.tab-link button:focus-visible {
+  outline-offset: 0px;
+}
+
+.tab-link button:hover {
+  text-decoration: underline;
 }

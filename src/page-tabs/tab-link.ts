@@ -25,9 +25,10 @@ const tabLink: TramOneComponent = ({
     chrome.windows.update(parseInt(windowId), { focused: true });
   };
   return html`<li class="tab-link">
-    <a href="#" onclick=${switchToTab}
-      ><img aria-label="favicon" alt="" src=${favicon} />${title}</a
-    >
+    <button type="button" onclick=${switchToTab} alt="Switch to tab - ${title}">
+      <img aria-label="favicon" alt="" src=${favicon} />
+      <span>${title}</span>
+    </button>
   </li> `;
 };
 
