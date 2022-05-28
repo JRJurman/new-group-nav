@@ -1,5 +1,6 @@
 import { registerHtml, TramOneComponent } from "tram-one";
 import useTargetGroupPage from "../useTargetGroupPage";
+import "./page-notes.css";
 
 const html = registerHtml();
 

@@ -15,7 +15,7 @@ const html = registerHtml({
 });
 
 // @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const pageController: TramOneComponent = ({ index }: { index: number }) => {
+const page: TramOneComponent = ({ index }: { index: number }) => {
   const targetGroupPage = useTargetGroupPage(index);
 
   const animationClassNames = [
@@ -29,7 +29,7 @@ const pageController: TramOneComponent = ({ index }: { index: number }) => {
   if (targetGroupPage.collapsed) {
     return html`
       <section
-        class="page collapsed ${animationClassNames}"
+        class="page page-${index} collapsed ${animationClassNames}"
         page-color=${targetGroupPage.color}
       >
         <page-header index=${index} />
@@ -39,7 +39,7 @@ const pageController: TramOneComponent = ({ index }: { index: number }) => {
 
   return html`
     <section
-      class="page expanded ${animationClassNames}"
+      class="page page-${index} expanded ${animationClassNames}"
       page-color=${targetGroupPage.color}
     >
       <page-header index=${index} />
@@ -49,4 +49,4 @@ const pageController: TramOneComponent = ({ index }: { index: number }) => {
   `;
 };
 
-export default pageController;
+export default page;
