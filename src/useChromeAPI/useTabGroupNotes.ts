@@ -8,12 +8,24 @@ const useTabGroupNotes = () => {
   // load page notes live
   useEffect(async () => {
     try {
-      const thisTab = (
-        await chrome.tabs.query({ active: true, lastFocusedWindow: true })
-      ).at(0);
-
       // function to handle new changes we get to the chrome extension local storage
-      const updatePageOnChanged = (changes) => {
+      const updatePageOnChanged = async (changes) => {
+        // first, determine what tab is being updated
+        const activeTabs = await chrome.tabs.query({
+          active: true,
+          lastFocusedWindow: true,
+        });
+        const activeTab = activeTabs.at(0);
+
+        // get this tab (the one running the script)
+        const currentTab = await chrome.tabs.getCurrent();
+
+        // if the current is the active tab, don't update it
+        // this creates laggy update behavior (and isn't required, the user is already updating it)
+        if (currentTab.id === activeTab.id) {
+          return;
+        }
+
         // iterate through the changes (chances are we'll only ever get one)
         Object.entries(changes).forEach(
           async ([groupId, change]: [string, any]) => {
@@ -27,15 +39,7 @@ const useTabGroupNotes = () => {
               return;
             }
 
-            // get the current active tab
-            const activeTab = await (
-              await chrome.tabs.query({ active: true, lastFocusedWindow: true })
-            ).at(0);
-
-            // if the active tab and current tab are different, we can update safely
-            if (thisTab.id !== activeTab.id) {
-              targetGroup.notes = change.newValue;
-            }
+            targetGroup.notes = change.newValue;
           }
         );
       };
