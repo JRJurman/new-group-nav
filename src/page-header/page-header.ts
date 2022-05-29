@@ -84,14 +84,14 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
         >
           ${expandIcon()}
         </button>
-        <span>${targetGroupPage.title || "Ungrouped"}</span>
+        <span>${targetGroupPage.title || ""}</span>
       </h1>
     `;
   }
 
   return html`
     <h1 class="page-header">
-      <span>${targetGroupPage.title || "Ungrouped"}</span>
+      <span>${targetGroupPage.title || ""}</span>
       <button onclick=${focusOnNotes} class="skip-to-content">
         Skip to notes
       </button>

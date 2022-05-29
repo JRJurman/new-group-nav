@@ -119,7 +119,7 @@ const useTabsAndGroups = () => {
           collapsed: false,
           color: "grey",
           id: -1,
-          title: undefined,
+          title: "",
           windowId: -1,
           tabs: [],
         };
