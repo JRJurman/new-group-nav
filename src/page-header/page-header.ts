@@ -13,11 +13,18 @@ type pageHeaderProps = {
 const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
   const targetGroupPage = useTargetGroupPage(index);
 
+  // action to focus on the notes (which are after all the tabs)
+  // this is reminscent of the "skip to content" side-effect
   const focusOnNotes = () => {
     const relatedNotes = document.querySelector(
       `.note-${index}`
     ) as HTMLTextAreaElement;
     relatedNotes.focus();
+  };
+
+  // function to prevent focusin event (which causes scrolling)
+  const preventFocusPropigation = (event: Event) => {
+    event.preventDefault();
   };
 
   const collapseTab = async () => {
@@ -70,7 +77,11 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
   if (targetGroupPage.collapsed) {
     return html`
       <h1 class="page-header">
-        <button aria-label="expand" onclick=${expandTab}>
+        <button
+          aria-label="expand"
+          onclick=${expandTab}
+          onmousedown=${preventFocusPropigation}
+        >
           ${expandIcon()}
         </button>
         <span>${targetGroupPage.title || "Ungrouped"}</span>
@@ -84,7 +95,11 @@ const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
       <button onclick=${focusOnNotes} class="skip-to-content">
         Skip to notes
       </button>
-      <button aria-label="collapse" onclick=${collapseTab}>
+      <button
+        aria-label="collapse"
+        onclick=${collapseTab}
+        onmousedown=${preventFocusPropigation}
+      >
         ${collapseIcon()}
       </button>
     </h1>

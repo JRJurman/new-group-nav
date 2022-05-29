@@ -17,32 +17,28 @@ const pageScroller: TramOneComponent = (props, children) => {
   const groupPages = useGlobalStore("GROUP_PAGES") as GroupPage[];
 
   const scrollToPage = () => {
+    // get the page-scroller-flex (this is the element which actually scrolls)
     const pageScrollerElement = document.querySelector(`.page-scroller-flex`);
-
-    const focusedPage = document.querySelector(
-      ".page:focus-within"
-    ) as HTMLElement;
-
-    // check if element with focus is also currently being hovered
-    const focusedHoveredElement = document.querySelector(":focus:hover");
-    if (focusedHoveredElement) {
-      // if the element is both hovered and focused, check what kind of element it is
-      // in some cases we want to skip scrolling, since that would mess with the click event
-      if (focusedHoveredElement.matches("a, button")) {
-        return;
-      }
-    }
 
     // get the current scroll position (we'll go back here later before moving)
     const currentScrollPosition = pageScrollerElement.scrollLeft;
 
+    // determine what page was given focus
+    const focusedPage = document.querySelector(
+      ".page:focus-within"
+    ) as HTMLElement;
+
     // put all the elements at their original offset
     pageScrollerElement.scrollLeft = 0;
+
     // get the location of the page now
     const pageOffset = focusedPage.offsetLeft;
 
     // we don't need the page to be right along the left side
-    const pagePreOffset = window.innerWidth / 2;
+    const pagePreOffset = window.innerWidth / 4;
+
+    // build the new position to scroll to based on the where the page is, and the preoffset
+    const newScrollPosition = pageOffset - pagePreOffset;
 
     // check if the user has preferred reduced motion (in that case we won't do a smooth transiiton)
     const prefersReducedMotion = window.matchMedia(
@@ -53,7 +49,7 @@ const pageScroller: TramOneComponent = (props, children) => {
     // and then smooth transition to the new location
     pageScrollerElement.scrollTo({ left: currentScrollPosition });
     pageScrollerElement.scrollTo({
-      left: pageOffset - pagePreOffset,
+      left: newScrollPosition,
       behavior: prefersReducedMotion ? "auto" : "smooth",
     });
   };
