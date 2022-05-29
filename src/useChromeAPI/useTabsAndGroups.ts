@@ -166,7 +166,6 @@ const useTabsAndGroups = () => {
         const newGroupPagesAreSame =
           JSON.stringify(newGroupPages) === JSON.stringify(groupPages);
         if (newGroupPagesAreSame) {
-          console.log("pages were same, skipping update");
           return;
         }
 
