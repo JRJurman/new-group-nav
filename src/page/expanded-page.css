@@ -24,14 +24,13 @@
 }
 
 .page.expanded ul {
-  height: 45vh;
+  flex: 1;
   overflow: overlay;
   padding: 0;
 }
 
 .page.expanded textarea {
   font-size: 1.4em;
-  height: 100%;
 }
 
 .page.expanded button {

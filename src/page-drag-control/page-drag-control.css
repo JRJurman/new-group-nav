@@ -1,0 +1,13 @@
+.page-drag-control {
+  width: 100%;
+  margin: -10px auto;
+}
+
+.page-drag-control svg {
+  margin: auto;
+}
+
+.page-drag-control,
+.page-drag-control svg {
+  cursor: row-resize;
+}
