@@ -122,6 +122,7 @@ const useTabsAndGroups = () => {
           title: "",
           windowId: -1,
           tabs: [],
+          notes: notes[-1],
         };
 
         // populate the groupPages by iterating through the tabs
