@@ -19,6 +19,7 @@ const pageNotes: TramOneComponent = ({ index }: { index: number }) => {
         dragControlStore.dividerHeight = dividerLocalStorage.dividerHeight;
       }
     };
+    updateDividerHeight();
     chrome.storage.onChanged.addListener(updateDividerHeight);
   });
 
