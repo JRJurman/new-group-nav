@@ -10,8 +10,7 @@ type pageTabsProps = {
   index: string;
 };
 
-// @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const pageTabs: TramOneComponent = ({ index }: pageTabsProps) => {
+const pageTabs: TramOneComponent<pageTabsProps> = ({ index }) => {
   const targetGroupPage = useTargetGroupPage(index);
 
   const tabLinks = (targetGroupPage.tabs || []).map(

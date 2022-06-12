@@ -10,13 +10,12 @@ type tabLinkProps = {
   windowId: string;
 };
 
-// @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const tabLink: TramOneComponent = ({
+const tabLink: TramOneComponent<tabLinkProps> = ({
   index,
   favicon,
   title,
   windowId,
-}: tabLinkProps) => {
+}) => {
   const switchToTab = () => {
     chrome.tabs.highlight({
       tabs: parseInt(index),

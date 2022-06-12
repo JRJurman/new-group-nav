@@ -9,8 +9,7 @@ type pageHeaderProps = {
   index: number;
 };
 
-// @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const pageHeader: TramOneComponent = ({ index }: pageHeaderProps) => {
+const pageHeader: TramOneComponent<pageHeaderProps> = ({ index }) => {
   const targetGroupPage = useTargetGroupPage(index);
 
   // action to focus on the notes (which are after all the tabs)

@@ -4,8 +4,7 @@ import "./page-notes.css";
 
 const html = registerHtml();
 
-// @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const pageNotes: TramOneComponent = ({ index }: { index: number }) => {
+const pageNotes: TramOneComponent<{ index: number }> = ({ index }) => {
   const targetGroupPage = useTargetGroupPage(index);
   const dragControlStore = useGlobalStore("DRAG_CONTROL", {
     dividerHeight: 0.45,

@@ -16,8 +16,7 @@ const html = registerHtml({
   "page-drag-control": pageDragControl,
 });
 
-// @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const page: TramOneComponent = ({ index }: { index: number }) => {
+const page: TramOneComponent<{ index: number }> = ({ index }) => {
   const targetGroupPage = useTargetGroupPage(index);
 
   const animationClassNames = [

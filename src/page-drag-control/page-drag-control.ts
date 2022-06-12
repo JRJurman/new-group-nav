@@ -4,8 +4,7 @@ import "./page-drag-control.css";
 
 const html = registerHtml();
 
-// @ts-expect-error https://github.com/Tram-One/tram-one/issues/193
-const pageDragControl: TramOneComponent = ({ index }: { index: number }) => {
+const pageDragControl: TramOneComponent<{ index: number }> = ({ index }) => {
   const onMouseMove = (event) => {
     // set the divider height as a percent from the top of the window
     chrome.storage.local.set({
