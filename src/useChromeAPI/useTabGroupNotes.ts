@@ -1,5 +1,6 @@
 import { useEffect, useGlobalStore } from "tram-one";
 import { GroupPage } from "../types";
+import { isActiveTab } from "./isActiveTab";
 
 const useTabGroupNotes = () => {
   const groupPages = useGlobalStore("GROUP_PAGES", [] as GroupPage[]);
@@ -10,19 +11,9 @@ const useTabGroupNotes = () => {
     try {
       // function to handle new changes we get to the chrome extension local storage
       const updatePageOnChanged = async (changes) => {
-        // first, determine what tab is being updated
-        const activeTabs = await chrome.tabs.query({
-          active: true,
-          lastFocusedWindow: true,
-        });
-        const activeTab = activeTabs.at(0);
-
-        // get this tab (the one running the script)
-        const currentTab = await chrome.tabs.getCurrent();
-
         // if the current is the active tab, don't update it
         // this creates laggy update behavior (and isn't required, the user is already updating it)
-        if (currentTab.id === activeTab.id) {
+        if (await isActiveTab()) {
           return;
         }
 

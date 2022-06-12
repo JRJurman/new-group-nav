@@ -2,7 +2,11 @@ import { registerHtml, TramOneComponent, useGlobalStore } from "tram-one";
 import pageScroller from "../page-scroller";
 import errorPage from "../error-page";
 import "./app.css";
-import { useTabGroupNotes, useTabsAndGroups } from "../useChromeAPI";
+import {
+  useTabGroupNotes,
+  useTabsAndGroups,
+  useDividerHeight,
+} from "../useChromeAPI";
 
 const html = registerHtml({
   "page-scroller": pageScroller,
@@ -15,6 +19,8 @@ const app: TramOneComponent = () => {
   // fetch tabs, groups, and tab-group notes!
   useTabsAndGroups();
   useTabGroupNotes();
+  // fetch divider control state
+  useDividerHeight();
 
   // if we encountered an error, show the error page
   if (errorStore.error) {
