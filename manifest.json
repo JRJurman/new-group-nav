@@ -1,7 +1,7 @@
 {
   "name": "New Group Nav",
   "description": "Get details and write notes for your tab groups",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "manifest_version": 3,
   "chrome_url_overrides": {
     "newtab": "index.html"
