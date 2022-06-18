@@ -14,7 +14,8 @@
 }
 
 .page-scroller .page,
-.page-scroller .blank-page {
+.page-scroller .blank-page,
+.page-scroller .iframe-page {
   flex: none;
   position: sticky;
   left: 0;

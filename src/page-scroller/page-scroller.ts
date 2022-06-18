@@ -5,12 +5,13 @@ import {
   useGlobalStore,
 } from "tram-one";
 import { GroupPage } from "../types";
-import page, { blankPage } from "../page";
+import page, { blankPage, iframePage } from "../page";
 import "./page-scroller.css";
 
 const html = registerHtml({
   page: page,
   "blank-page": blankPage,
+  "iframe-page": iframePage,
 });
 
 const pageScroller: TramOneComponent = (props, children) => {
@@ -70,7 +71,11 @@ const pageScroller: TramOneComponent = (props, children) => {
   });
 
   return html` <section class="page-scroller">
-    <section class="page-scroller-flex">${pages} <blank-page /></section>
+    <section class="page-scroller-flex">
+      ${pages}
+      <iframe-page />
+      <blank-page />
+    </section>
   </section>`;
 };
 

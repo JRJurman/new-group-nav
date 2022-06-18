@@ -1,0 +1,13 @@
+.iframe-page {
+  display: block;
+  width: 535px;
+  height: 100%;
+  box-shadow: var(--shadow-5);
+}
+
+/* if we are in light mode, made the shadow more pronounced */
+@media (prefers-color-scheme: light) {
+  .iframe-page {
+    box-shadow: var(--shadow-6);
+  }
+}
