@@ -2,7 +2,7 @@ type TabGroup = chrome.tabGroups.TabGroup;
 type Tab = chrome.tabs.Tab;
 
 export interface GroupPage extends TabGroup {
-  tabs?: Tab[];
+  tabs: Tab[];
   notes?: string;
   isCollapsing?: boolean;
   isExpanding?: boolean;

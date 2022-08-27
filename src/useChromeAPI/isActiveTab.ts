@@ -9,5 +9,5 @@ export const isActiveTab = async () => {
   // get this tab (the one running the script)
   const currentTab = await chrome.tabs.getCurrent();
 
-  return currentTab.id === activeTab.id;
+  return currentTab.id === activeTab?.id;
 };

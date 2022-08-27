@@ -18,6 +18,7 @@ const useTargetGroupPage: (number) => GroupPage = (index) => {
       color: "grey",
       id: -2,
       windowId: -1,
+      tabs: [],
     };
   }
 

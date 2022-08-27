@@ -10,6 +10,19 @@ const pageNotes: TramOneComponent<{ index: number }> = ({ index }) => {
     dividerHeight: 0.45,
   });
 
+  /** update the dom so that other actions (like dragging) don't cause old text to render */
+  const updateNotesDOM = () => {
+    // get the text area element
+    const notesTextarea = document.querySelector(
+      `textarea.note-${index}`
+    ) as HTMLTextAreaElement;
+
+    // if the element's value doesn't match the rendered DOM, update!
+    if (notesTextarea.value !== targetGroupPage.notes) {
+      targetGroupPage.notes = notesTextarea.value;
+    }
+  };
+
   const updateNotes = (event) => {
     const updatedNotesValue = event.target.value;
     chrome.storage.local.set({ [targetGroupPage.id]: updatedNotesValue });
@@ -27,6 +40,7 @@ const pageNotes: TramOneComponent<{ index: number }> = ({ index }) => {
       oninput=${updateNotes}
       placeholder="Jot notes here for your tab group!"
       style="height: ${notesHeight}"
+      onblur=${updateNotesDOM}
     >
       ${targetGroupPage.notes}
     </textarea

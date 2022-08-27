@@ -14,8 +14,9 @@ const useTabsAndGroups = () => {
         (document.activeElement as HTMLElement).blur();
 
         // also get the current scroll position (so we can attempt to go back to it)
-        const pageScrollerElement =
-          document.querySelector(`.page-scroller-flex`);
+        const pageScrollerElement = document.querySelector(
+          `.page-scroller-flex`
+        ) as HTMLElement;
         const currentScrollPosition = pageScrollerElement.scrollLeft;
 
         // tab information
@@ -27,7 +28,7 @@ const useTabsAndGroups = () => {
         });
 
         // group information
-        const tabGroups = [];
+        const tabGroups: chrome.tabGroups.TabGroup[] = [];
         windows.forEach(async ({ id: windowId }) => {
           const tabGroupsForWindow = await chrome.tabGroups.query({ windowId });
           tabGroups.push(...tabGroupsForWindow);
@@ -41,7 +42,7 @@ const useTabsAndGroups = () => {
         const currentTabGroupInfo: TabGroupInfo = {};
         tabGroups.forEach((tabGroup) => {
           currentTabGroupInfo[tabGroup.id] = {
-            title: tabGroup.title,
+            title: tabGroup.title || "",
             color: tabGroup.color,
             datetime: new Date().toISOString(),
           };
@@ -127,7 +128,7 @@ const useTabsAndGroups = () => {
 
         // populate the groupPages by iterating through the tabs
         // this way they are in the order that they appear in the window
-        const newGroupPages = [];
+        const newGroupPages: GroupPage[] = [];
         tabs.forEach((tab) => {
           const lastGroup = newGroupPages.at(-1);
 
@@ -158,7 +159,7 @@ const useTabsAndGroups = () => {
         }, []);
 
         // if we have any ungrouped tabs, push the ungrouped tab group to the newGroupPages
-        if (ungroupedTabPage.tabs?.length > 0) {
+        if (ungroupedTabPage.tabs.length > 0) {
           newGroupPages.push(ungroupedTabPage);
         }
 
@@ -175,8 +176,9 @@ const useTabsAndGroups = () => {
         groupPages.push(...newGroupPages);
 
         // finally, reset the scroll to what it was before we started,
-        const newPageScrollerElement =
-          document.querySelector(`.page-scroller-flex`);
+        const newPageScrollerElement = document.querySelector(
+          `.page-scroller-flex`
+        ) as HTMLElement;
         newPageScrollerElement.scrollTo({ left: currentScrollPosition });
       } catch (error) {
         errorStore.error = error;

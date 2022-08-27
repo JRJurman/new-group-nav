@@ -1,6 +1,6 @@
 {
   "name": "new-group-nav",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "private": true,
   "source": "src/index.html",
   "scripts": {
@@ -37,7 +37,7 @@
     "parcel": "^2.5.0",
     "prettier": "^2.6.2",
     "svgexport": "^0.4.2",
-    "tram-one": "^12.0.3",
+    "tram-one": "^13.2.1",
     "ts-jest": "^28.0.2"
   }
 }
